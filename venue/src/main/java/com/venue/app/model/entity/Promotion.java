@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "promotion")
 @Data @NoArgsConstructor @AllArgsConstructor

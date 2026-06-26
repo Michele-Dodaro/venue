@@ -2,7 +2,8 @@ package com.venue.app.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "promotion_items")
 @Data @NoArgsConstructor @AllArgsConstructor

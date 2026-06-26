@@ -3,7 +3,8 @@ package com.venue.app.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "event_layout")
 @Data @NoArgsConstructor @AllArgsConstructor

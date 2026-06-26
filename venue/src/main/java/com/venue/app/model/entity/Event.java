@@ -4,17 +4,20 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "event")
-@Data @NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100)
-    private String genre;
+    @Column(length = 100, nullable = false)
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
