@@ -17,7 +17,7 @@ public class AuthenticationController {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
         Optional<String> token = authService.login(email, password);
 

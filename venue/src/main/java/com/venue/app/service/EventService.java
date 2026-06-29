@@ -21,11 +21,7 @@ public class EventService {
         event.setDate(eventDTO.getDate() != null ? eventDTO.getDate() : LocalDateTime.now());
         Event savedEvent = eventRepository.save(event);
 
-        EventDTO savedEventDTO = new EventDTO();
-        savedEventDTO.setName(savedEvent.getName());
-        savedEventDTO.setDescription(savedEvent.getDescription());
-        savedEventDTO.setDate(savedEvent.getDate());
 
-        return savedEventDTO;
+        return EventDTO.toDTO(savedEvent);
     }
 }

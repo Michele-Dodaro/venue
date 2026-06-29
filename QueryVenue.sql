@@ -83,3 +83,5 @@ CREATE TABLE promotion_items (
     menu_items_id INTEGER REFERENCES menu_items(id) ON DELETE CASCADE,
     event_layout_id INT REFERENCES event_layout(id) ON DELETE CASCADE
 );
+
+SELECT * FROM users;
