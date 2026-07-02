@@ -2,17 +2,17 @@ package com.venue.app.model.dto;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-public class MenuItemDTO {
+public class MenuItemDTOResponse {
     private static final AtomicLong counter = new AtomicLong();
     private final long id;
     private String name;
     private String url;
 
-    public MenuItemDTO() {
+    public MenuItemDTOResponse() {
         this.id = counter.incrementAndGet();
     }
 
-    public MenuItemDTO(String name, String url) {
+    public MenuItemDTOResponse(String name, String url) {
         this.id = counter.incrementAndGet();
         this.name = name;
         this.url = url;

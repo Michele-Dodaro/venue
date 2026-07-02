@@ -38,6 +38,17 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+
         return http.build();
+
+
+    }
+    public static class PasswordGenerator {
+        public static void main(String[] args) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode("password");
+            System.out.println(encodedPassword);
+        }
     }
 }

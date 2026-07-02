@@ -1,7 +1,9 @@
 package com.venue.app.controller;
 
-import com.venue.app.model.dto.MenuCategoryDTO;
-import com.venue.app.model.dto.MenuItemDTO;
+import com.venue.app.model.dto.MenuCategoryDTORequest;
+import com.venue.app.model.dto.MenuCategoryDTOResponse;
+import com.venue.app.model.dto.MenuItemDTORequest;
+import com.venue.app.model.dto.MenuItemDTOResponse;
 import com.venue.app.service.MenuService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,19 @@ public class MenuController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MenuCategoryDTO>> getMenu() {
-        List<MenuCategoryDTO> categories = menuService.getMenu();
+    public ResponseEntity<List<MenuCategoryDTOResponse>> getMenu() {
+        List<MenuCategoryDTOResponse> categories = menuService.getMenu();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
+    @GetMapping("/items")
+    public ResponseEntity<List<MenuItemDTOResponse>> getAllMenuItems(@RequestParam(required = false) String category) {
+        List<MenuItemDTOResponse> items = menuService.getMenuItems(category);
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
+
     @PostMapping("/categories")
-    public ResponseEntity<MenuCategoryDTO> createCategory(@RequestBody MenuCategoryDTO newCategory) {
+    public ResponseEntity<MenuCategoryDTORequest> createCategory(@RequestBody MenuCategoryDTORequest newCategory) {
         boolean created = menuService.createCategory(newCategory);
         if (!created) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -34,8 +42,9 @@ public class MenuController {
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
+
     @PutMapping("/categories/modifica/{categoryName}")
-    public ResponseEntity<MenuCategoryDTO> updateCategory(@PathVariable String categoryName, @RequestBody MenuCategoryDTO updatedCategory) {
+    public ResponseEntity<MenuCategoryDTORequest> updateCategory(@PathVariable String categoryName, @RequestBody MenuCategoryDTORequest updatedCategory) {
         boolean updated = menuService.updateCategory(categoryName, updatedCategory);
         if (updated) {
             return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
@@ -50,16 +59,16 @@ public class MenuController {
     }
 
     @PostMapping("/categories/{categoryName}/items")
-    public ResponseEntity<MenuItemDTO> addMenuItemToCategory(@PathVariable String categoryName, @RequestBody MenuItemDTO menuItemDTO) {
-        boolean added = menuService.addMenuItemToCategory(categoryName, menuItemDTO);
+    public ResponseEntity<MenuItemDTORequest> addMenuItemToCategory(@PathVariable String categoryName, @RequestBody MenuItemDTORequest menuItemDTORequest) {
+        boolean added = menuService.addMenuItemToCategory(categoryName, menuItemDTORequest);
         if (added) {
-            return new ResponseEntity<>(menuItemDTO, HttpStatus.CREATED);
+            return new ResponseEntity<>(menuItemDTORequest, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/categories/{categoryName}/items/{itemId}")
-    public ResponseEntity<MenuItemDTO> updateMenuItem(@PathVariable String categoryName, @PathVariable Long itemId, @RequestBody MenuItemDTO updatedMenuItem) {
+    public ResponseEntity<MenuItemDTORequest> updateMenuItem(@PathVariable String categoryName, @PathVariable Long itemId, @RequestBody MenuItemDTORequest updatedMenuItem) {
         boolean updated = menuService.updateMenuItem(categoryName, itemId, updatedMenuItem);
         if (updated) {
             return new ResponseEntity<>(updatedMenuItem, HttpStatus.OK);

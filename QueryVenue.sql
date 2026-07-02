@@ -1,12 +1,3 @@
-DROP TABLE IF EXISTS promotion_items CASCADE;
-DROP TABLE IF EXISTS promotion CASCADE;
-DROP TABLE IF EXISTS menu_items CASCADE;
-DROP TABLE IF EXISTS menu_categories CASCADE;
-DROP TABLE IF EXISTS reservation_items CASCADE;
-DROP TABLE IF EXISTS reservations CASCADE;
-DROP TABLE IF EXISTS event_layout CASCADE;
-DROP TABLE IF EXISTS event CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -85,3 +76,25 @@ CREATE TABLE promotion_items (
 );
 
 SELECT * FROM users;
+
+
+INSERT INTO menu_categories (type) VALUES
+    ('Appetizers'),
+    ('Main Courses'),
+    ('Desserts'),
+    ('Beverages');
+
+INSERT INTO users (email, password) VALUES ('michele@prova.com','$2a$10$.qgWYq/4aIufTyk69iUdBOtGIN1p6j/pplEAkXV2.405quxNCusBa');
+
+
+INSERT INTO menu_items (plate, description, original_price, menu_categories_id) VALUES
+    ('Bruschetta', 'Toasted bread with tomatoes, garlic, and basil', 6.50, 1),
+    ('Fried Calamari', 'Crispy fried squid rings with marinara sauce', 12.00, 1),
+    ('Spaghetti Carbonara', 'Pasta with eggs, pecorino cheese, guanciale, and black pepper', 14.50, 2),
+    ('Grilled Ribeye Steak', '12oz ribeye served with roasted potatoes', 28.00, 2),
+    ('Tiramisu', 'Classic Italian coffee-flavored dessert', 7.00, 3),
+    ('Panna Cotta', 'Sweetened cream thickened with gelatin', 6.50, 3),
+    ('Espresso', 'Single shot of Italian coffee', 2.50, 4),
+    ('Sparkling Water', 'Bottle of sparkling mineral water', 3.00, 4);
+
+SELECT * FROM menu_categories;
