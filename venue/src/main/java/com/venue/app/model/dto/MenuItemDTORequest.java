@@ -2,7 +2,6 @@ package com.venue.app.model.dto;
 
 import java.math.BigDecimal;
 
-// MODIFICA: Added fields matching the MenuItem entity (using categoryId for the ManyToOne relationship) and generated plain Java constructors, getters, and setters.
 public class MenuItemDTORequest {
 
     private String plate;
