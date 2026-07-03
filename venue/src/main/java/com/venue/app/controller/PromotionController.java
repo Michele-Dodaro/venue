@@ -16,6 +16,7 @@ public class PromotionController {
         this.promotionService = promotionService;
     }
 
+
     @PostMapping
     public ResponseEntity<PromotionDTOResponse> createPromotion(@RequestBody PromotionDTORequest request) {
         PromotionDTOResponse response = promotionService.createPromotion(request);
@@ -33,4 +34,16 @@ public class PromotionController {
 
         return ResponseEntity.badRequest().body("Failed to apply promotion. Promotion or Menu Item not found.");
     }
+
+    @PostMapping("/{promotionId}/apply-to-layout/{layoutId}")
+    public ResponseEntity<String> applyPromotionToLayout(@PathVariable Long promotionId, @PathVariable Long layoutId) {
+        boolean success = promotionService.applyPromotionToEventLayout(promotionId, layoutId);
+
+        if (success) {
+            return ResponseEntity.ok("Promotion applied successfully to the event layout.");
+        }
+
+        return ResponseEntity.badRequest().body("Failed to apply promotion. Promotion or Event Layout not found.");
+    }
+
 }
