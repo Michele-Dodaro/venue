@@ -34,8 +34,6 @@ public class MenuService {
             MenuCategoryDTOResponse dto = new MenuCategoryDTOResponse();
             dto.setName(cat.getType());
 
-            // MODIFICA: Segnalato potenziale collo di bottiglia (N+1 query).
-            // Si consiglia di sostituire con una singola chiamata JOIN FETCH nel repository.
             List<MenuItemDTOResponse> items = menuItemRepository.findByMenuCategoryType(cat.getType())
                     .stream()
                     .map(item -> new MenuItemDTOResponse(item.getPlate(), item.getDescription()))
@@ -57,8 +55,6 @@ public class MenuService {
         return true;
     }
 
-    // MODIFICA: Sostituito MenuCategoryDTOResponse con MenuCategoryDTORequest in ingresso.
-    // MODIFICA: Aggiornato il metodo da getName() a getType() per riflettere il Request DTO.
     public boolean updateCategory(String categoryName, MenuCategoryDTORequest updatedCategory) {
         Optional<MenuCategories> opt = menuRepository.findByType(categoryName);
         if (opt.isPresent()) {
@@ -75,8 +71,6 @@ public class MenuService {
         menuRepository.deleteByType(categoryName);
     }
 
-    /* MODIFICA: Sostituito MenuItemDTOResponse con MenuItemDTORequest per i dati in ingresso.
-       Corretta la mappatura per usare getPlate(), getDescription() e getOriginalPrice() al posto di getUrl() */
     public boolean addMenuItemToCategory(String categoryName, MenuItemDTORequest request) {
         Optional<MenuCategories> catOpt = menuRepository.findByType(categoryName);
 
@@ -93,8 +87,6 @@ public class MenuService {
         return false;
     }
 
-    /* MODIFICA: Sostituito MenuItemDTOResponse con MenuItemDTORequest per i dati in ingresso.
-       Corretta la mappatura dei campi per rispecchiare i dati in entrata corretti. */
     public boolean updateMenuItem(String categoryName, Long itemId, MenuItemDTORequest request) {
         Optional<MenuItems> itemOpt = menuItemRepository.findByIdAndMenuCategoryType(itemId, categoryName);
 
@@ -124,7 +116,6 @@ public class MenuService {
     public List<MenuItemDTOResponse> getMenuItems(String categoryName) {
         List<MenuItems> items;
 
-        // MODIFICA: Sostituito trim().isEmpty() con isBlank() introdotto in Java 11 per una sintassi piu pulita.
         if (categoryName == null || categoryName.isBlank()) {
             items = menuItemRepository.findAll();
         } else {

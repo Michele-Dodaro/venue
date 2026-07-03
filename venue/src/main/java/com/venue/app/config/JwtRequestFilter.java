@@ -41,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtService.extractUsername(jwt);
             } catch (ExpiredJwtException e) {
-                // gesitsce token scaduti
+
             }
         }
 

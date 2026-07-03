@@ -18,10 +18,17 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final EventRepository eventRepository;
+    private final QRCodeService qrCodeService;
+    private final EmailService emailService;
 
-    public ReservationService(ReservationRepository reservationRepository, EventRepository eventRepository) {
+    public ReservationService(ReservationRepository reservationRepository,
+                              EventRepository eventRepository,
+                              QRCodeService qrCodeService,
+                              EmailService emailService) {
         this.reservationRepository = reservationRepository;
         this.eventRepository = eventRepository;
+        this.qrCodeService = qrCodeService;
+        this.emailService = emailService;
     }
 
     @Transactional
@@ -42,6 +49,28 @@ public class ReservationService {
         reservation.setReservationStatus(request.getReservationStatus());
 
         Reservations savedReservation = reservationRepository.save(reservation);
+
+        try {
+            String qrData = "ReservationID:" + savedReservation.getId() + "-EventID:" + request.getEventId() + "-Name:" + request.getCustomerName();
+            byte[] qrCodeImage = qrCodeService.generateQRCodeImage(qrData, 250, 250);
+
+            String emailBody = "Dear " + request.getCustomerName() + ",\n\n" +
+                    "Your reservation for the event is confirmed.\n" +
+                    "Attached is your QR Code to present at the entrance.\n\n" +
+                    "Total paid: " + request.getTotalAmount() + " EUR\n" +
+                    "Status: " + request.getReservationStatus() + "\n\n" +
+                    "Thank you!";
+
+            emailService.sendReservationEmailWithQR(
+                    request.getCustomerEmail(),
+                    "Event Reservation Confirmation",
+                    emailBody,
+                    qrCodeImage
+            );
+        } catch (Exception e) {
+            System.err.println("Error during QR code generation or email sending: " + e.getMessage());
+        }
+
         return mapToResponse(savedReservation);
     }
 

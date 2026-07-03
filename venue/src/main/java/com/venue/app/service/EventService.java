@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// MODIFICA: Switched input parameters to EventDTORequest, replaced field injection with constructor injection, and threw an exception instead of returning null on update.
 @Service
 public class EventService {
 

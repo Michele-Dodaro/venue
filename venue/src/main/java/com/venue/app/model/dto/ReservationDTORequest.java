@@ -2,7 +2,6 @@ package com.venue.app.model.dto;
 
 import java.math.BigDecimal;
 
-// MODIFICA: Creazione del DTO di richiesta per le prenotazioni, utilizzando una classe Java tradizionale senza Lombok.
 public class ReservationDTORequest {
 
     private Long eventId;

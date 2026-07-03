@@ -2,7 +2,6 @@ package com.venue.app.model.dto;
 
 import java.math.BigDecimal;
 
-/* MODIFICA: Creazione del DTO di risposta per EventLayout senza l'uso di Lombok per formattare i dati in uscita */
 public class EventLayoutDTOResponse {
 
     private Long id;

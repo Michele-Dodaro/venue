@@ -3,7 +3,6 @@ package com.venue.app.model.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-// MODIFICA: Creazione del DTO di risposta per le prenotazioni, formattato come classe standard senza Lombok.
 public class ReservationDTOResponse {
 
     private Long id;
