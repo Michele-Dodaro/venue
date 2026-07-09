@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS promotion_items CASCADE;
+DROP TABLE IF EXISTS promotion CASCADE;
+DROP TABLE IF EXISTS menu_items CASCADE;
+DROP TABLE IF EXISTS menu_categories CASCADE;
+DROP TABLE IF EXISTS reservation_items CASCADE;
+DROP TABLE IF EXISTS reservations CASCADE;
+DROP TABLE IF EXISTS event_layout CASCADE;
+DROP TABLE IF EXISTS event CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -8,6 +18,7 @@ CREATE TABLE users (
 
 CREATE TABLE event (
     id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
     genre VARCHAR(100),
     description TEXT,
     date TIMESTAMP NOT NULL,
@@ -75,7 +86,6 @@ CREATE TABLE promotion_items (
     event_layout_id INT REFERENCES event_layout(id) ON DELETE CASCADE
 );
 
-SELECT * FROM users;
 
 
 INSERT INTO menu_categories (type) VALUES
@@ -97,4 +107,10 @@ INSERT INTO menu_items (plate, description, original_price, menu_categories_id) 
     ('Espresso', 'Single shot of Italian coffee', 2.50, 4),
     ('Sparkling Water', 'Bottle of sparkling mineral water', 3.00, 4);
 
-SELECT * FROM menu_categories;
+INSERT INTO event (name, genre, description, date, active) VALUES
+('Iron Maiden Tribute Night', 'Heavy Metal', 'Una serata dedicata ai giganti della NWOBHM.', '2026-08-15 21:00:00', true),
+('Grunge Revival Session', 'Rock/Grunge', 'Tutti i successi degli anni 90 che hanno fatto la storia.', '2026-08-22 22:00:00', true),
+('Thrash Attack', 'Thrash Metal', 'Tre band locali che spingono al limite del BPM.', '2026-09-02 20:30:00', true),
+('Alternative Rock Unplugged', 'Rock', 'Una veste acustica per i classici dell alt-rock moderno.', '2026-09-10 19:30:00', true),
+('Night of Doom', 'Doom Metal', 'Atmosfere cupe e ritmi lenti per i veri appassionati.', '2026-09-18 21:30:00', true);
+-- MODIFICA: inserted metal and rock themed events into the database

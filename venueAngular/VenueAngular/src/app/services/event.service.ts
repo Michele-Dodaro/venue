@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { EventDTORequest } from '../models/EventDTO';
+import { EventDTOResponse } from '../models/EventDTO';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EventService {
+private apiUrl = '/api/events';
+
+  constructor(private http: HttpClient) { }
+
+  getAllEvents(): Observable<EventDTOResponse[]> {
+    return this.http.get<EventDTOResponse[]>(this.apiUrl);
+  }
+
+  createEvent(event: EventDTORequest): Observable<EventDTOResponse> {
+    return this.http.post<EventDTOResponse>(this.apiUrl, event);
+  }
+
+  updateEvent(id: number, event: EventDTORequest): Observable<EventDTOResponse> {
+    return this.http.put<EventDTOResponse>(`${this.apiUrl}/${id}`, event);
+  }
+
+  deleteEvent(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}

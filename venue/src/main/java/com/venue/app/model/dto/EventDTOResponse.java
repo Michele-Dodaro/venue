@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class EventDTOResponse {
+    private String id;
     private String name;
     private String description;
     private LocalDateTime date;
@@ -16,6 +17,14 @@ public class EventDTOResponse {
         eventDTOResponse.setDescription(event.getDescription());
         eventDTOResponse.setDate(event.getDate());
         return eventDTOResponse;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescription() {
