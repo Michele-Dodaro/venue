@@ -1,0 +1,65 @@
+.detail-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff; 
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.event-hero {
+  border-bottom: 3px solid #f4d03f; 
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.event-hero h2 {
+  color: #333; 
+}
+
+.date {
+  color: #7f8c8d; 
+  font-weight: 600;
+}
+
+.description-section h3, .info-section h3 {
+  color: #2c3e50;
+}
+
+.back-btn {
+  background-color: #f4d03f; 
+  color: #333; 
+  font-weight: bold;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #d4ac0d; 
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  font-weight: bold;
+  border: none;
+  margin-left: 10px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}

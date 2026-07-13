@@ -15,6 +15,10 @@ private apiUrl = '/api/events';
   getAllEvents(): Observable<EventDTOResponse[]> {
     return this.http.get<EventDTOResponse[]>(this.apiUrl);
   }
+  
+  getEventById(id: number): Observable<EventDTOResponse> {
+    return this.http.get<EventDTOResponse>(`${this.apiUrl}/${id}`);
+  }
 
   createEvent(event: EventDTORequest): Observable<EventDTOResponse> {
     return this.http.post<EventDTOResponse>(this.apiUrl, event);

@@ -4,8 +4,10 @@ import com.venue.app.model.dto.EventDTORequest;
 import com.venue.app.model.dto.EventDTOResponse;
 import com.venue.app.model.entity.Event;
 import com.venue.app.repository.EventRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.FileChannel;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +50,24 @@ public class EventService {
         throw new RuntimeException("Event not found with id: " + id);
     }
 
+    @Transactional
     public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
+        if (eventRepository.existsById(id)) {
+            eventRepository.deleteById(id);
+            System.out.println("Evento eliminato con successo: " + id);
+        } else {
+            System.out.println("Tentativo di eliminare evento inesistente: " + id);
+        }
+    }
+    public Optional<EventDTOResponse> findById(Long id) {
+        return eventRepository.findById(id)
+                .map(event -> {
+                    EventDTOResponse dto = new EventDTOResponse();
+                    dto.setId((event.getId()));
+                    dto.setName(event.getName());
+                    dto.setDescription(event.getDescription());
+                    dto.setDate(event.getDate());
+                    return dto;
+                });
     }
 }

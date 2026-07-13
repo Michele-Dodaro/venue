@@ -5,7 +5,7 @@ export interface EventDTORequest {
 }
 
 export interface EventDTOResponse {
-  id: string;
+  id: number;
   name: string;
   description: string;
   date: Date;

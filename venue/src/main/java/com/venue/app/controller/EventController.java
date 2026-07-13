@@ -32,6 +32,12 @@ public class EventController {
         List<EventDTOResponse> events = eventService.findAll();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<EventDTOResponse> getEventById(@PathVariable Long id) {
+        return eventService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PutMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
@@ -47,6 +53,7 @@ public class EventController {
     @DeleteMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
+        System.out.println("Ricevuta richiesta DELETE per id: " + id);
         eventService.deleteEvent(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -113,4 +113,6 @@ INSERT INTO event (name, genre, description, date, active) VALUES
 ('Thrash Attack', 'Thrash Metal', 'Tre band locali che spingono al limite del BPM.', '2026-09-02 20:30:00', true),
 ('Alternative Rock Unplugged', 'Rock', 'Una veste acustica per i classici dell alt-rock moderno.', '2026-09-10 19:30:00', true),
 ('Night of Doom', 'Doom Metal', 'Atmosfere cupe e ritmi lenti per i veri appassionati.', '2026-09-18 21:30:00', true);
--- MODIFICA: inserted metal and rock themed events into the database
+
+
+

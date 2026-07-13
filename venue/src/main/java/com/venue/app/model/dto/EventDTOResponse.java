@@ -6,24 +6,25 @@ import java.time.LocalDateTime;
 
 @Data
 public class EventDTOResponse {
-    private String id;
+    private Long id;
     private String name;
     private String description;
     private LocalDateTime date;
 
     public static EventDTOResponse toDTO(Event event ) {
         EventDTOResponse eventDTOResponse = new EventDTOResponse();
+        eventDTOResponse.setId(event.getId());
         eventDTOResponse.setName(event.getName());
         eventDTOResponse.setDescription(event.getDescription());
         eventDTOResponse.setDate(event.getDate());
         return eventDTOResponse;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

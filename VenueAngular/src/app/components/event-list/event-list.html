@@ -23,11 +23,13 @@
   
   <ul class="event-list">
     @for (event of events; track event.id) {
-      <li class="event-card">
-        <h3>{{ event.name }}</h3>
-        <p class="description">{{ event.description }}</p>
-        <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
-      </li>
+      <a [routerLink]="['/events', event.id]">
+        <li class="event-card">
+          <h3>{{ event.name }}</h3>
+          <p class="description">{{ event.description }}</p>
+          <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
+        </li>
+      </a>
     } @empty {
       <p class="no-data">Nessun evento trovato nel database.</p>
     }

@@ -31,6 +31,10 @@ export class EventListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const savedEvents = localStorage.getItem('events_cache');
+    if (savedEvents) {
+      this.events = JSON.parse(savedEvents);
+    }
     this.loadEvents();
   }
 
@@ -38,9 +42,10 @@ export class EventListComponent implements OnInit {
     this.eventService.getAllEvents().subscribe({
       next: (data) => {
         this.events = data;
+        localStorage.setItem('events_cache', JSON.stringify(data));
         this.cdr.detectChanges(); 
       },
-      error: (err) => console.error('Errore:', err)
+      error: (err) => console.error('Error:', err)
     });
   }
 }
