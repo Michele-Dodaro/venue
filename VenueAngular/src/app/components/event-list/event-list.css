@@ -67,6 +67,10 @@ h2 {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.event-card.inactive-event {
+  border-left-color: #ff0000;
+}
+
 .event-card h3 {
   margin: 0 0 10px 0;
   color: #000;

@@ -3,8 +3,8 @@
     <img src="./logo.png" alt="Logo" class="logo">
 
     @if (isLoggedIn()) {
-      <a [routerLink]="['/events/crea']">
-        <img src="./addIcon.png" alt="Aggiungi Evento">
+      <a [routerLink]="['/add-button']">
+        <img src="./addIcon.png" alt="Aggiungi">
       </a>
       
       <a class="nav-link" routerLink="/users-list">users</a>
@@ -23,17 +23,18 @@
   
   <ul class="event-list">
     @for (event of events; track event.id) {
-      @if (event.active || isLoggedIn()) {
-        <a [routerLink]="['/events', event.id]">
-          <li class="event-card">
+      @if (event.active  || isLoggedIn()) {
+        <li class="event-card" [class.inactive-event]="!event.active">
+          <a [routerLink]="['/events', event.id]" style="display: block; text-decoration: none; color: inherit;">
             <h3>{{ event.name }}</h3>
             <p class="description">{{ event.description }}</p>
+            <p class="description"><strong>Genere:</strong> {{ event.genre }}</p>
             <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
-          </li>
-        </a>
+          </a>
+        </li>
       }
     } @empty {
-      <p class="no-data">Nessun evento trovato nel database.</p>
+      <li class="no-data" style="list-style: none;">Nessun evento trovato nel database.</li>
     }
   </ul>
 </div>

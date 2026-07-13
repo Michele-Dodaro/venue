@@ -1,0 +1,25 @@
+.add-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.add-event-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.add-event-btn {
+  background-color: #f4d03f;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-event-btn:hover {
+  background-color: #d4ac0d;
+}

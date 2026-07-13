@@ -5,13 +5,14 @@ import { EventService } from '../../services/event.service';
 import { EventDTOResponse } from '../../models/EventDTO'; 
 import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { AddButtonComponent } from '../add-button/add-button';
 
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './event-list.html', 
-  styleUrl: './event-list.css' 
+  imports: [CommonModule, RouterLink, AddButtonComponent],
+  templateUrl: './event-list.html',
+  styleUrl: './event-list.css'
 })
 
 export class EventListComponent implements OnInit {
