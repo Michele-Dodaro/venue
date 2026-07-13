@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs'; // MODIFICA: import Observable
+import { Observable } from 'rxjs';
 import { EventService } from '../../services/event.service';
 import { EventDTOResponse } from '../../models/EventDTO';
 import { AuthService } from '../../services/auth.service';
@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class EventDetailComponent implements OnInit {
   event?: EventDTOResponse;
-  isLoggedIn$!: Observable<boolean>; // MODIFICA: definita senza 'of(false)'
+  isLoggedIn$!: Observable<boolean>;
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -24,10 +24,8 @@ export class EventDetailComponent implements OnInit {
   private authService = inject(AuthService);
 
   ngOnInit() {
-    // MODIFICA: assegnazione diretta dello stream dal servizio
     this.isLoggedIn$ = this.authService.getAuthState();
 
-    // Debug: vedi cosa riceve il componente
     this.isLoggedIn$.subscribe(status => console.log('DEBUG Componente - Stato login:', status));
 
     const id = this.route.snapshot.paramMap.get('id');

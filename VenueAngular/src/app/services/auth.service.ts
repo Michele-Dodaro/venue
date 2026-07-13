@@ -9,14 +9,12 @@ import { Observable, tap, BehaviorSubject } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/auth';
   
-  // MODIFICA: Inizializzazione sicura per evitare errori SSR
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    // MODIFICA: Inizializziamo lo stato solo se siamo nel browser
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token');
       this.loggedIn.next(!!token);

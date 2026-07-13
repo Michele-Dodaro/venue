@@ -1,35 +1,37 @@
 <div class="container">
+  <nav>
+    <img src="./logo.png" alt="Logo" class="logo">
 
-<nav>
-  <img src="./logo.png" alt="Logo" class="logo">
+    @if (isLoggedIn()) {
+      <a [routerLink]="['/events/crea']">
+        <img src="./addIcon.png" alt="Aggiungi Evento">
+      </a>
+      
+      <a class="nav-link" routerLink="/users-list">users</a>
+    }
 
-  @if (isLoggedIn()) {
-    <a routerLink="/add-event">
-      <img src="./addIcon.png" alt="Aggiungi Evento">
-    </a>
-    
-    <a class="nav-link" routerLink="/users-list">users</a>
-  }
+    <a class="nav-link" routerLink="/menu-category-list">menu</a>
 
-  <a class="nav-link" routerLink="/menu-category-list">menu</a>
-
-  @if (!isLoggedIn()) {
-    <a class="nav-link" routerLink="/login">login</a>
-  } @else {
-    <a class="nav-link" (click)="logout()" style="cursor: pointer;">logout</a>
-  }
-</nav>
+    @if (!isLoggedIn()) {
+      <a class="nav-link" routerLink="/login">login</a>
+    } @else {
+      <a class="nav-link" (click)="logout()" style="cursor: pointer;">logout</a>
+    }
+  </nav>
+  
   <h2>Lista Eventi</h2>
   
   <ul class="event-list">
     @for (event of events; track event.id) {
-      <a [routerLink]="['/events', event.id]">
-        <li class="event-card">
-          <h3>{{ event.name }}</h3>
-          <p class="description">{{ event.description }}</p>
-          <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
-        </li>
-      </a>
+      @if (event.active || isLoggedIn()) {
+        <a [routerLink]="['/events', event.id]">
+          <li class="event-card">
+            <h3>{{ event.name }}</h3>
+            <p class="description">{{ event.description }}</p>
+            <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
+          </li>
+        </a>
+      }
     } @empty {
       <p class="no-data">Nessun evento trovato nel database.</p>
     }

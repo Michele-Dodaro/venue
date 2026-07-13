@@ -116,3 +116,5 @@ INSERT INTO event (name, genre, description, date, active) VALUES
 
 
 
+INSERT INTO event_layout (conformation, row, number, price1, price2, price3, event_id) VALUES
+('prova',3,4,19.90,16.90,14.90,1);

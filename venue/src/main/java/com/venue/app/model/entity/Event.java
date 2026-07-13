@@ -25,4 +25,8 @@ public class Event {
 
     @Column(nullable = false)
     private LocalDateTime date;
+
+    private Boolean active;
+
+    private String genre;
 }

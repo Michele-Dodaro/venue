@@ -39,7 +39,7 @@ public class EventController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/modifica/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<EventDTOResponse> updateEvent(@PathVariable Long id, @RequestBody EventDTORequest eventDTORequest) {
         try {

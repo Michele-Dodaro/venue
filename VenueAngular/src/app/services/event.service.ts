@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EventDTORequest } from '../models/EventDTO';
 import { EventDTOResponse } from '../models/EventDTO';
+import { EventLayoutDTO } from '../models/EventDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-private apiUrl = '/api/events';
+  private apiUrl = '/api/events';
+  private layoutUrl = '/api/event-layouts';
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +22,7 @@ private apiUrl = '/api/events';
     return this.http.get<EventDTOResponse>(`${this.apiUrl}/${id}`);
   }
 
-  createEvent(event: EventDTORequest): Observable<EventDTOResponse> {
+ createEvent(event: EventDTORequest): Observable<EventDTOResponse> {
     return this.http.post<EventDTOResponse>(this.apiUrl, event);
   }
 
@@ -31,4 +33,9 @@ private apiUrl = '/api/events';
   deleteEvent(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  
+  getLayouts(): Observable<EventLayoutDTO[]> {
+    return this.http.get<EventLayoutDTO[]>(this.layoutUrl);
+  }
+
 }

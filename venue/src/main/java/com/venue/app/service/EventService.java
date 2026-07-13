@@ -27,6 +27,8 @@ public class EventService {
         event.setName(eventDTORequest.getName());
         event.setDescription(eventDTORequest.getDescription());
         event.setDate(eventDTORequest.getDate() != null ? eventDTORequest.getDate() : LocalDateTime.now());
+        event.setActive(eventDTORequest.getActive());
+        event.setGenre(eventDTORequest.getGenre());
         Event savedEvent = eventRepository.save(event);
         return EventDTOResponse.toDTO(savedEvent);
     }
@@ -44,6 +46,8 @@ public class EventService {
             event.setName(eventDTORequest.getName());
             event.setDescription(eventDTORequest.getDescription());
             event.setDate(eventDTORequest.getDate());
+            event.setActive(eventDTORequest.getActive());
+            event.setGenre(eventDTORequest.getGenre());
             Event updatedEvent = eventRepository.save(event);
             return EventDTOResponse.toDTO(updatedEvent);
         }
@@ -67,6 +71,8 @@ public class EventService {
                     dto.setName(event.getName());
                     dto.setDescription(event.getDescription());
                     dto.setDate(event.getDate());
+                    dto.setActive(event.getActive());
+                    dto.setGenre(event.getGenre());
                     return dto;
                 });
     }

@@ -18,7 +18,6 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-// login.ts
 onLogin() {
   if (!this.email || !this.password) return;
 

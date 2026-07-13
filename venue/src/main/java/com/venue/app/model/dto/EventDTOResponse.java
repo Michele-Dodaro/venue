@@ -10,6 +10,8 @@ public class EventDTOResponse {
     private String name;
     private String description;
     private LocalDateTime date;
+    private Boolean active;
+    private String genre;
 
     public static EventDTOResponse toDTO(Event event ) {
         EventDTOResponse eventDTOResponse = new EventDTOResponse();
@@ -17,6 +19,8 @@ public class EventDTOResponse {
         eventDTOResponse.setName(event.getName());
         eventDTOResponse.setDescription(event.getDescription());
         eventDTOResponse.setDate(event.getDate());
+        eventDTOResponse.setActive(event.getActive());
+        eventDTOResponse.setGenre(event.getGenre());
         return eventDTOResponse;
     }
 
@@ -50,5 +54,21 @@ public class EventDTOResponse {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

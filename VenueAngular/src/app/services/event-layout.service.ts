@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EventDTO } from '../models/EventLayoutDTO';
+import { EventLayoutDTO } from '../models/EventDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +11,20 @@ export class EventLayoutService {
 
   constructor(private http: HttpClient) { }
 
-  createEventLayout(layout: EventDTO): Observable<EventDTO> {
-    return this.http.post<EventDTO>(this.apiUrl, layout);
+  createEventLayout(layout: EventLayoutDTO): Observable<EventLayoutDTO> {
+    return this.http.post<EventLayoutDTO>(this.apiUrl, layout);
   }
 
-  getAllEventLayouts(): Observable<EventDTO[]> {
-    return this.http.get<EventDTO[]>(this.apiUrl);
+  getAllEventLayouts(): Observable<EventLayoutDTO[]> {
+    return this.http.get<EventLayoutDTO[]>(this.apiUrl);
   }
 
-  getEventLayoutById(id: number): Observable<EventDTO> {
-    return this.http.get<EventDTO>(`${this.apiUrl}/${id}`);
+  getEventLayoutById(id: number): Observable<EventLayoutDTO> {
+    return this.http.get<EventLayoutDTO>(`${this.apiUrl}/${id}`);
   }
 
-  updateEventLayout(id: number, layout: EventDTO): Observable<EventDTO> {
-    return this.http.put<EventDTO>(`${this.apiUrl}/${id}`, layout);
+  updateEventLayout(id: number, layout: EventLayoutDTO): Observable<EventLayoutDTO> {
+    return this.http.put<EventLayoutDTO>(`${this.apiUrl}/${id}`, layout);
   }
 
   deleteEventLayout(id: number): Observable<void> {

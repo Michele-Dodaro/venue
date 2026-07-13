@@ -14,6 +14,12 @@
   padding-bottom: 1rem;
 }
 
+.inactive-event {
+  border-left: 6px solid #e74c3c;
+  padding-left: 1rem;
+  background-color: #fff5f5;
+}
+
 .event-hero h2 {
   color: #333; 
 }
