@@ -37,25 +37,19 @@ export class UsersListComponent implements OnInit {
   }
 
   loadUsers(): void {
-    if (!this.isBrowser) {
-      return;
-    }
+    if (!this.isBrowser) return;
 
     this.errorMessage = null;
     this.userService.getUsers().subscribe({
-      next: users => {
-        console.log('Utenti caricati:', users);
+      next: (users) => {
         this.users = users;
         this.cdr.markForCheck();
       },
       error: (err) => {
-        console.error('Errore nel caricamento utenti:', err);
         const status = err?.status ?? err?.statusCode;
-        if (status === 403) {
-          this.errorMessage = 'Accesso negato: effettua il login con un account autorizzato.';
-        } else {
-          this.errorMessage = 'Non è stato possibile caricare gli utenti.';
-        }
+        this.errorMessage = status === 403 
+          ? 'Accesso negato: effettua il login con un account autorizzato.' 
+          : 'Non è stato possibile caricare gli utenti.';
         this.cdr.markForCheck();
         this.notify(this.errorMessage);
       }
@@ -71,16 +65,15 @@ export class UsersListComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
     this.userService.createUser(this.newUser).subscribe({
-      next: (cdr.markForCheck();
+      next: () => {
         this.loadUsers();
+        this.newUser = { email: '', password: '' };
       },
       error: (err) => {
         const status = err?.status ?? err?.statusCode;
-        if (status === 403) {
-          this.errorMessage = 'Accesso negato: non hai i permessi per creare un utente.';
-        } else {
-          this.errorMessage = 'Errore durante la creazione dell\'utente.';
-        }
+        this.errorMessage = status === 403 
+          ? 'Accesso negato: non hai i permessi per creare un utente.' 
+          : 'Errore durante la creazione dell\'utente.';
         this.cdr.markForCheck();
         this.notify(this.errorMessage);
       },
@@ -88,13 +81,10 @@ export class UsersListComponent implements OnInit {
         this.isLoading = false;
         this.cdr.markForCheck();
       }
-      },
-      complete: () => this.isLoading = false
     });
   }
 
   onDelete(user: UserDTO): void {
-    console.log('Tentando eliminare utente:', user);
     if (this.isCurrentUser(user)) {
       this.notify('Non puoi eliminare l\'utente con cui sei loggato.');
       return;
@@ -102,31 +92,28 @@ export class UsersListComponent implements OnInit {
 
     if (user.id == null) {
       this.notify('Impossibile eliminare utente senza identificativo.');
-      console.error('User object:', user);
       return;
     }
 
-    if (this.isBrowser && !confirm(`Eliminare l'utente ${user.email}?`)) {
-      return;
-    }
-cdr.markForCheck();
+    if (this.isBrowser && !confirm(`Eliminare l'utente ${user.email}?`)) return;
+
+    this.isDeletingId = user.id;
+    this.userService.deleteUser(user.id).subscribe({
+      next: () => {
         this.loadUsers();
       },
       error: (err) => {
-        this.isDeletingId = null;
         const status = err?.status ?? err?.statusCode;
-        if (status === 403) {
-          this.errorMessage = 'Accesso negato: non hai i permessi per eliminare questo utente.';
-        } else {
-          this.errorMessage = 'Errore durante l\'eliminazione dell\'utente.';
-        }
-        this.cdr.markForCheck();onst status = err?.status ?? err?.statusCode;
-        if (status === 403) {
-          this.errorMessage = 'Accesso negato: non hai i permessi per eliminare questo utente.';
-        } else {
-          this.errorMessage = 'Errore durante l\'eliminazione dell\'utente.';
-        }
+        this.errorMessage = status === 403 
+          ? 'Accesso negato: non hai i permessi per eliminare questo utente.' 
+          : 'Errore durante l\'eliminazione dell\'utente.';
         this.notify(this.errorMessage);
+        this.isDeletingId = null;
+        this.cdr.markForCheck();
+      },
+      complete: () => {
+        this.isDeletingId = null;
+        this.cdr.markForCheck();
       }
     });
   }

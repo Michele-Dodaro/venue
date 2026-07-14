@@ -21,7 +21,6 @@ export class AppComponent {
 
   logout(): void {
     this.authService.logout();
-    // navigate to home route after logout instead of full reload
     window.location.href = '/';
   }
 }

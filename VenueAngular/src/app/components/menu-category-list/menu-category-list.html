@@ -5,9 +5,9 @@
   } @else if (errorMessage) {
     <p class="error">{{ errorMessage }}</p>
   } @else {
-    @for (entry of categories; track entry.category.name) {
+    @for (entry of categories; track entry.category.type || $index) {
       <section class="menu-category">
-        <h3>{{ entry.category.name }}</h3>
+        <h3>{{ entry.category.type }}</h3>
         <ul>
           @for (item of entry.items; track item.id) {
             <li class="menu-item">
@@ -21,7 +21,13 @@
             <li class="no-items">Nessun elemento in questa categoria.</li>
           }
         </ul>
-      </section>
+        @if (isLoggedIn) {
+            <button [routerLink]="['/edit-category', entry.category.type]">Modifica</button>
+        }
+        @else {
+            
+        }      
+</section>
     } @empty {
       <p>Nessuna categoria trovata.</p>
     }

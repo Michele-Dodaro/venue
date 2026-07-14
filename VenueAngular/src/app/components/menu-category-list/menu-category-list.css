@@ -96,3 +96,19 @@
   padding: 4px 8px;
   border-radius: 4px;
 }
+.menu-category button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  background-color: #333;
+  color: #fff;
+}
+
+.menu-category button:hover {
+  background-color: #000;
+}

@@ -9,14 +9,14 @@ import java.util.List;
 @Setter
 @Getter
 public class MenuCategoryDTOResponse {
-    private String name;
+    private String type;
     private List<MenuItemDTOResponse> items = new ArrayList<>();
 
     public MenuCategoryDTOResponse() {
     }
 
     public MenuCategoryDTOResponse(String name) {
-        this.name = name;
+        this.type = name;
     }
 
 }

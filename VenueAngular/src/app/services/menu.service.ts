@@ -27,9 +27,9 @@ export class MenuService {
     return this.http.post<MenuCategoryDTO>(`${this.apiUrl}/categories`, newCategory);
   }
 
-  updateCategory(categoryName: string, updatedCategory: MenuCategoryDTO): Observable<MenuCategoryDTO> {
-    return this.http.put<MenuCategoryDTO>(`${this.apiUrl}/categories/modifica/${categoryName}`, updatedCategory);
-  }
+updateCategory(categoryName: string, updatedCategory: MenuCategoryDTO): Observable<MenuCategoryDTO> {
+  return this.http.put<MenuCategoryDTO>(`${this.apiUrl}/categories/modifica/${categoryName}`, updatedCategory);
+}
 
   deleteCategory(categoryName: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/categories/cancella/${categoryName}`);

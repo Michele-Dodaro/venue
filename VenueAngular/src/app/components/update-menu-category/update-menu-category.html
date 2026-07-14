@@ -1,0 +1,29 @@
+<div class="menu-category-container">
+  <h2>Modifica categoria</h2>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="menu-category-form">
+    
+    <div class="form-group">
+      <label for="type">Nuovo nome categoria</label>
+      <input 
+        id="type" 
+        formControlName="type" 
+        type="text" 
+        placeholder="Inserisci il nuovo nome" 
+      />
+      @if (categoryForm.get('type')?.invalid && categoryForm.get('type')?.touched) {
+        <small class="error-text">Il nome della categoria è obbligatorio.</small>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="back-btn" routerLink="/menu-category-list">
+        Annulla
+      </button>
+      <button type="submit" [disabled]="categoryForm.invalid">
+        Salva modifiche
+      </button>
+    </div>
+
+  </form>
+</div>

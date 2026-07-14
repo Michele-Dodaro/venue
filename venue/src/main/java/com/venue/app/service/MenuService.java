@@ -32,7 +32,7 @@ public class MenuService {
 
         return categories.stream().map(cat -> {
             MenuCategoryDTOResponse dto = new MenuCategoryDTOResponse();
-            dto.setName(cat.getType());
+            dto.setType(cat.getType());
 
             List<MenuItemDTOResponse> items = menuItemRepository.findByMenuCategoryType(cat.getType())
                     .stream()
