@@ -10,7 +10,7 @@ import { AddButtonComponent } from '../add-button/add-button';
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, AddButtonComponent],
+  imports: [CommonModule, RouterLink],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css'
 })

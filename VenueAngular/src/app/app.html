@@ -1,1 +1,24 @@
-<router-outlet></router-outlet>
+<nav>
+    <a class="logo-link" [routerLink]="['/events']">
+        <img src="./logo.png" alt="Logo" class="logo">
+    </a>
+
+    @if (isLogged) {
+        <a class="nav-action" [routerLink]="['/add-button']">
+            <img src="./addIcon.png" alt="Aggiungi">
+        </a>
+        <a class="nav-link" routerLink="/users-list">users</a>
+    }
+
+    <a class="nav-link" routerLink="/menu-category-list">menu</a>
+
+    @if (!isLogged) {
+        <a class="nav-link" routerLink="/login">login</a>
+    } @else {
+        <a class="nav-link" (click)="logout()" style="cursor: pointer;">logout</a>
+    }
+</nav>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

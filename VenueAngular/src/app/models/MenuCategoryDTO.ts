@@ -1,4 +1,4 @@
-import { MenuItemDTOResponse } from './MenuItemsDTO';
+import { MenuItemDTOResponse } from './MenuDTO';
 
 export interface MenuCategoryDTORequest {
     type: string;

@@ -6,6 +6,61 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      background-color: #f4f4f4;
+      font-family: sans-serif;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      background-color: #000;
+      padding: 10px 20px;
+      border-bottom: 3px solid #ffcc00;
+    }
+
+    .logo {
+      height: 80px; 
+      width: auto;
+      margin-right: 20px;
+    }
+
+    nav a:first-of-type {
+      margin-left: auto; 
+    }
+
+    nav a img {
+      height: 40px; 
+      width: auto;
+      margin-right: 20px;
+      transition: transform 0.2s;
+    }
+
+    nav a img:hover {
+      transform: scale(1.1);
+    }
+
+    .nav-link {
+      color: #ffcc00;
+      text-decoration: none;
+      margin-left: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
   <app-root></app-root>

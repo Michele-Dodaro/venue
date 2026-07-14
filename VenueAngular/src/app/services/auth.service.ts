@@ -47,4 +47,64 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.loggedIn.value;
   }
+
+  getCurrentUserEmail(): string | null {
+    const payload = this.getTokenPayload();
+    if (!payload) {
+      return null;
+    }
+
+    if (typeof payload.email === 'string') {
+      return payload.email;
+    }
+
+    if (typeof payload.sub === 'string') {
+      return payload.sub;
+    }
+
+    return null;
+  }
+
+  getCurrentUserId(): number | null {
+    const payload = this.getTokenPayload();
+    if (!payload) {
+      return null;
+    }
+
+    const possibleIds = [payload.sub, payload.id, payload.userId];
+
+    for (const value of possibleIds) {
+      if (typeof value === 'number') {
+        return value;
+      }
+      if (typeof value === 'string' && !isNaN(Number(value))) {
+        return Number(value);
+      }
+    }
+
+    return null;
+  }
+
+  private getTokenPayload(): any | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+
+    const parts = token.split('.');
+    if (parts.length < 2) {
+      return null;
+    }
+
+    try {
+      const payloadJson = atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'));
+      return JSON.parse(payloadJson);
+    } catch {
+      return null;
+    }
+  }
 }

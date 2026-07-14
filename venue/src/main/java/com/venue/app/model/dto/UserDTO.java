@@ -1,15 +1,25 @@
 package com.venue.app.model.dto;
 
 public class UserDTO {
+    private Long id;
     private String email;
     private String password;
 
     public UserDTO() {
     }
 
-    public UserDTO(String email, String password) {
+    public UserDTO(String email, String password, Long id) {
         this.email = email;
         this.password = password;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {

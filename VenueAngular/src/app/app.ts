@@ -1,13 +1,27 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet], 
+  imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class AppComponent {
-  title = 'venue-frontend';
+  private authService = inject(AuthService);
+  isLogged = false;
+
+  constructor() {
+    this.isLogged = this.authService.isLoggedIn();
+    this.authService.getAuthState().subscribe(v => this.isLogged = v);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    // navigate to home route after logout instead of full reload
+    window.location.href = '/';
+  }
 }

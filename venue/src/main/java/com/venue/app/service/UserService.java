@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
 
@@ -22,8 +25,12 @@ public class UserService {
         Users newUser = new Users();
         newUser.setEmail(userDTO.getEmail());
         newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userRepository.save(newUser);
-        return userDTO;
+        Users savedUser = userRepository.save(newUser);
+
+        UserDTO result = new UserDTO();
+        result.setId(savedUser.getId());
+        result.setEmail(savedUser.getEmail());
+        return result;
     }
 
     public boolean deleteUser(Long id) {
@@ -41,5 +48,15 @@ public class UserService {
             return true;
         }
         return false;
+    }
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(user -> {
+                    UserDTO dto = new UserDTO();
+                    dto.setId(user.getId());
+                    dto.setEmail(user.getEmail());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }

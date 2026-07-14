@@ -1,5 +1,6 @@
 package com.venue.app.model.dto;
 
+import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class MenuItemDTOResponse {
@@ -7,15 +8,18 @@ public class MenuItemDTOResponse {
     private final long id;
     private String name;
     private String url;
+    private BigDecimal originalPrice;
+
 
     public MenuItemDTOResponse() {
         this.id = counter.incrementAndGet();
     }
 
-    public MenuItemDTOResponse(String name, String url) {
+    public MenuItemDTOResponse(Long id,String name, String url, BigDecimal originalPrice) {
         this.id = counter.incrementAndGet();
         this.name = name;
         this.url = url;
+        this.originalPrice = originalPrice;
     }
 
     public long getId() {
@@ -36,5 +40,12 @@ public class MenuItemDTOResponse {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public BigDecimal getOriginalPrice() {
+        return originalPrice;
+    }
+    public void setOriginalPrice(BigDecimal originalPrice) {
+        this.originalPrice = originalPrice;
     }
 }

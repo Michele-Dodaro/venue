@@ -1,0 +1,29 @@
+<div class="menu-container">
+  <h2>Menu</h2>
+  @if (loading) {
+    <p>Caricamento categorie...</p>
+  } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  } @else {
+    @for (entry of categories; track entry.category.name) {
+      <section class="menu-category">
+        <h3>{{ entry.category.name }}</h3>
+        <ul>
+          @for (item of entry.items; track item.id) {
+            <li class="menu-item">
+              <div class="item-header"> 
+                <div class="item-name">{{ item.name }}</div>
+                <div class="item-price">{{ item.originalPrice | currency:'EUR':'symbol':'1.2-2' }}</div>
+              </div>
+              <div class="item-desc">{{ item.url }}</div>
+            </li>
+          } @empty {
+            <li class="no-items">Nessun elemento in questa categoria.</li>
+          }
+        </ul>
+      </section>
+    } @empty {
+      <p>Nessuna categoria trovata.</p>
+    }
+  }
+</div>

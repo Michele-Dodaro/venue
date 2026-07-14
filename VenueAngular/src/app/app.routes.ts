@@ -5,6 +5,8 @@ import { EventDetailComponent } from './components/event-detail/event-detail';
 import { CreateEventComponent } from './components/event-creation/event-creation';
 import { AddButtonComponent } from './components/add-button/add-button';
 import { CreateMenuCategoryComponent } from './components/menu-category-creation/menu-category-creation';
+import { MenuCategoryListComponent } from './components/menu-category-list/menu-category-list';
+import { UsersListComponent } from './components/users-list/users-list';
 
 export const routes: Routes = [
     {
@@ -16,6 +18,11 @@ export const routes: Routes = [
         path: 'events/crea',
         component: CreateEventComponent,
         title: 'Crea Evento'
+    },
+    {
+        path: 'menu-category-list',
+        component: MenuCategoryListComponent,
+        title: 'Menu'
     },
     {
         path: 'events/:id',
@@ -41,5 +48,10 @@ export const routes: Routes = [
         path: 'add-button/menu-category-creation',
         component: CreateMenuCategoryComponent,
         title: 'Crea Categoria Menu'
+    },
+    {
+        path: 'users-list',
+        component: UsersListComponent,
+        title: 'Utenti'
     }
 ];

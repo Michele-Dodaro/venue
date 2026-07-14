@@ -1,0 +1,44 @@
+<section class="users-page">
+  <h1>Gestione Utenti</h1>
+
+  <div class="users-grid">
+    <section class="user-create-card">
+      <h2>Aggiungi Utente</h2>
+      <form class="user-form" (ngSubmit)="onCreate()">
+        <label>
+          Email
+          <input type="email" [(ngModel)]="newUser.email" name="email" required />
+        </label>
+
+        <label>
+          Password
+          <input type="password" [(ngModel)]="newUser.password" name="password" required />
+        </label>
+
+        <button type="button" (click)="onCreate()" [disabled]="isLoading">Crea Utente</button>
+      </form>
+    </section>
+
+    <section class="user-list-card">
+      <h2>Elenco Utenti</h2>
+      <div *ngIf="errorMessage" class="error-state">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="!errorMessage && users.length === 0" class="empty-state">
+        Nessun utente trovato.
+      </div>
+      <div class="users-list" *ngIf="!errorMessage && users.length > 0">
+        <div *ngFor="let user of users" class="user-row">
+          <span>{{ user.email }}</span>
+          <button
+            class="delete-btn"
+            [disabled]="isCurrentUser(user) || isDeletingId === user.id"
+            (click)="onDelete(user)"
+          >
+            {{ isDeletingId === user.id ? 'Eliminando...' : 'Elimina' }}
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

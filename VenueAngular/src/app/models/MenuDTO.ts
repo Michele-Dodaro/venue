@@ -9,4 +9,9 @@ export interface MenuItemDTOResponse {
   id: number;
   name: string;
   url: string;
+  originalPrice: number;
+}
+
+export interface MenuCategoryDTO {
+  name: string;
 }

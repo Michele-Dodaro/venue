@@ -36,7 +36,7 @@ public class MenuService {
 
             List<MenuItemDTOResponse> items = menuItemRepository.findByMenuCategoryType(cat.getType())
                     .stream()
-                    .map(item -> new MenuItemDTOResponse(item.getPlate(), item.getDescription()))
+                    .map(item -> new MenuItemDTOResponse(item.getId(), item.getPlate(), item.getDescription(), item.getOriginalPrice()))
                     .collect(Collectors.toList());
 
             dto.setItems(items);
@@ -123,7 +123,7 @@ public class MenuService {
         }
 
         return items.stream()
-                .map(item -> new MenuItemDTOResponse(item.getPlate(), item.getDescription()))
+                .map(item -> new MenuItemDTOResponse(item.getId(), item.getPlate(), item.getDescription(), item.getOriginalPrice()))
                 .collect(Collectors.toList());
     }
 }

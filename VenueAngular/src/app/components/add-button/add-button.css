@@ -23,3 +23,12 @@
 .add-event-btn:hover {
   background-color: #d4ac0d;
 }
+
+.add-user-btn {
+  background-color: #8e44ad;
+  color: #fff;
+}
+
+.add-user-btn:hover {
+  background-color: #71368a;
+}
