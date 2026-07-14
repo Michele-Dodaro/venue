@@ -56,10 +56,13 @@ export const routes: Routes = [
         title: 'Utenti'
     },
 
-  { 
-     path: 'edit-category/:name',
-      component: UpdateMenuCategory,
-      title: 'Modifica Categoria Menu'
-     }
-
+    {
+        path: 'edit-category/:name',
+        component: UpdateMenuCategory,
+        title: 'Modifica Categoria Menu'
+    },
+    {
+        path: 'categories/:categories/items/:items',
+        component: MenuCategoryListComponent,
+    }
 ];

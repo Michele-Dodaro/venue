@@ -28,8 +28,8 @@ public class MenuController {
     }
 
     @GetMapping("/items")
-    public ResponseEntity<List<MenuItemDTOResponse>> getAllMenuItems(@RequestParam(required = false) String category) {
-        List<MenuItemDTOResponse> items = menuService.getMenuItems(category);
+    public ResponseEntity<List<MenuItemDTOResponse>> getAllMenuItems(@RequestParam(required = false) String categoryName) {
+        List<MenuItemDTOResponse> items = menuService.getMenuItems(categoryName);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 

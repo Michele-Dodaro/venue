@@ -88,15 +88,17 @@ public class MenuService {
     }
 
     public boolean updateMenuItem(String categoryName, Long itemId, MenuItemDTORequest request) {
-        Optional<MenuItems> itemOpt = menuItemRepository.findByIdAndMenuCategoryType(itemId, categoryName);
+        List<MenuItems> itemList = menuItemRepository.findByIdAndMenuCategoryType(itemId, categoryName);
 
-        if (itemOpt.isPresent()) {
-            MenuItems item = itemOpt.get();
+        if (itemList != null && !itemList.isEmpty()) {
+            MenuItems item = itemList.get(0);
             item.setPlate(request.getPlate());
             item.setDescription(request.getDescription());
+
             if (request.getOriginalPrice() != null) {
                 item.setOriginalPrice(request.getOriginalPrice());
             }
+
             menuItemRepository.save(item);
             return true;
         }
@@ -104,26 +106,42 @@ public class MenuService {
     }
 
     public boolean deleteMenuItem(String categoryName, Long itemId) {
-        Optional<MenuItems> itemOpt = menuItemRepository.findByIdAndMenuCategoryType(itemId, categoryName);
+        Optional<MenuItems> itemOptional = menuItemRepository.findById(itemId);
 
-        if (itemOpt.isPresent()) {
-            menuItemRepository.delete(itemOpt.get());
-            return true;
+        if (itemOptional.isPresent()) {
+            MenuItems item = itemOptional.get();
+
+            if (item.getMenuCategory().getType().equalsIgnoreCase(categoryName)) {
+                menuItemRepository.delete(item);
+                return true;
+            } else {
+                System.out.println("L'item " + itemId + " non appartiene alla categoria " + categoryName);
+                return false;
+            }
         }
+
+        System.out.println("Nessun item trovato con id: " + itemId);
         return false;
     }
 
     public List<MenuItemDTOResponse> getMenuItems(String categoryName) {
-        List<MenuItems> items;
 
-        if (categoryName == null || categoryName.isBlank()) {
-            items = menuItemRepository.findAll();
-        } else {
-            items = menuItemRepository.findByMenuCategoryType(categoryName);
+        System.out.println("DEBUG: Cercando categoria con nome: '" + categoryName + "'");
+
+        List<MenuItems> items = menuItemRepository.findByMenuCategoryType(categoryName);
+
+        System.out.println("DEBUG: Trovati " + (items != null ? items.size() : "null") + " elementi.");
+
+        if (items == null || items.isEmpty()) {
+            return List.of();
         }
 
         return items.stream()
-                .map(item -> new MenuItemDTOResponse(item.getId(), item.getPlate(), item.getDescription(), item.getOriginalPrice()))
+                .map(item -> new MenuItemDTOResponse(
+                        item.getId(),
+                        item.getPlate(),
+                        item.getDescription(),
+                        item.getOriginalPrice()))
                 .collect(Collectors.toList());
     }
 }

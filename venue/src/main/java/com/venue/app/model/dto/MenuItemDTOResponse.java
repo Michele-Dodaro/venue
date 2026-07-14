@@ -16,7 +16,7 @@ public class MenuItemDTOResponse {
     }
 
     public MenuItemDTOResponse(Long id,String name, String url, BigDecimal originalPrice) {
-        this.id = counter.incrementAndGet();
+        this.id = id;
         this.name = name;
         this.url = url;
         this.originalPrice = originalPrice;

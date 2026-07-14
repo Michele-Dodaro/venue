@@ -15,12 +15,16 @@ export class MenuService {
     return this.http.get<MenuCategoryDTO[]>(this.apiUrl);
   }
 
-  getAllMenuItems(category?: string): Observable<MenuItemDTOResponse[]> {
+  getAllMenuItems(categoryName?: string): Observable<MenuItemDTOResponse[]> {
     let params = new HttpParams();
-    if (category) {
-      params = params.set('category', category);
+    if (categoryName) {
+      console.log(`Fetching menu items for category: ${categoryName}`);
+      params = params.set('categoryName', categoryName);
+
     }
-    return this.http.get<MenuItemDTOResponse[]>(`${this.apiUrl}/items`, { params });
+    let result = this.http.get<MenuItemDTOResponse[]>(`${this.apiUrl}/items`, { params });
+    console.log(result.subscribe(data => console.log('Fetched menu items:', data)));
+    return result;
   }
 
   createCategory(newCategory: MenuCategoryDTO): Observable<MenuCategoryDTO> {
@@ -42,8 +46,9 @@ updateCategory(categoryName: string, updatedCategory: MenuCategoryDTO): Observab
   updateMenuItem(categoryName: string, itemId: number, updatedMenuItem: MenuItemDTORequest): Observable<MenuItemDTOResponse> {
     return this.http.put<MenuItemDTOResponse>(`${this.apiUrl}/categories/${categoryName}/items/${itemId}`, updatedMenuItem);
   }
-
+  
   deleteMenuItem(categoryName: string, itemId: number): Observable<void> {
+    console.log(`Deleting menu item with ID ${itemId} from category ${categoryName}`);
     return this.http.delete<void>(`${this.apiUrl}/categories/${categoryName}/items/${itemId}`);
   }
 }

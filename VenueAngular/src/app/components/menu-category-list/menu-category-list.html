@@ -16,18 +16,20 @@
                 <div class="item-price">{{ item.originalPrice | currency:'EUR':'symbol':'1.2-2' }}</div>
               </div>
               <div class="item-desc">{{ item.url }}</div>
+              @if (isLoggedIn) {
+                <div class="item-actions">
+                <button type="button" class="delete-btn" (click)="deleteItem(entry.category.type, item.id)">Elimina</button>                
+            </div>
+              }
             </li>
           } @empty {
             <li class="no-items">Nessun elemento in questa categoria.</li>
           }
         </ul>
         @if (isLoggedIn) {
-            <button [routerLink]="['/edit-category', entry.category.type]">Modifica</button>
+          <button [routerLink]="['/edit-category', entry.category.type]">Modifica</button>
         }
-        @else {
-            
-        }      
-</section>
+      </section>
     } @empty {
       <p>Nessuna categoria trovata.</p>
     }

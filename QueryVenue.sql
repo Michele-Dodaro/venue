@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS promotion_items CASCADE;
 DROP TABLE IF EXISTS promotion CASCADE;
+TRUNCATE TABLE menu_items RESTART IDENTITY CASCADE;
 DROP TABLE IF EXISTS menu_items CASCADE;
 DROP TABLE IF EXISTS menu_categories CASCADE;
 DROP TABLE IF EXISTS reservation_items CASCADE;
@@ -120,3 +121,5 @@ INSERT INTO event_layout (conformation, row, number, price1, price2, price3, eve
 ('prova',3,4,19.90,16.90,14.90,1);
 
 SELECT * from menu_items;
+
+SELECT * FROM menu_items m WHERE  m.menu_categories_id = 1

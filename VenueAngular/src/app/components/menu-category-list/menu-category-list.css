@@ -112,3 +112,26 @@
 .menu-category button:hover {
   background-color: #000;
 }
+/* MODIFICA: container to push the delete button to the right side of the item */
+.item-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
