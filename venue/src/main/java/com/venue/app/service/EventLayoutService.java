@@ -2,10 +2,8 @@ package com.venue.app.service;
 
 import com.venue.app.model.dto.EventLayoutDTORequest;
 import com.venue.app.model.dto.EventLayoutDTOResponse;
-import com.venue.app.model.entity.Event;
 import com.venue.app.model.entity.EventLayout;
 import com.venue.app.repository.EventLayoutRepository;
-import com.venue.app.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,19 +14,12 @@ import java.util.stream.Collectors;
 public class EventLayoutService {
 
     private final EventLayoutRepository eventLayoutRepository;
-    private final EventRepository eventRepository;
 
-    public EventLayoutService(EventLayoutRepository eventLayoutRepository, EventRepository eventRepository) {
+    public EventLayoutService(EventLayoutRepository eventLayoutRepository) {
         this.eventLayoutRepository = eventLayoutRepository;
-        this.eventRepository = eventRepository;
     }
 
     public EventLayoutDTOResponse createEventLayout(EventLayoutDTORequest request) {
-        Optional<Event> eventOpt = eventRepository.findById(request.getEventId());
-        if (eventOpt.isEmpty()) {
-            throw new IllegalArgumentException("Event not found with ID: " + request.getEventId());
-        }
-
         EventLayout layout = new EventLayout();
         layout.setConformation(request.getConformation());
         layout.setRowField(request.getRowField());
@@ -36,7 +27,6 @@ public class EventLayoutService {
         layout.setPrice1(request.getPrice1());
         layout.setPrice2(request.getPrice2());
         layout.setPrice3(request.getPrice3());
-        layout.setEvent(eventOpt.get());
 
         EventLayout savedLayout = eventLayoutRepository.save(layout);
         return mapToResponse(savedLayout);
@@ -65,11 +55,6 @@ public class EventLayoutService {
             layout.setPrice2(request.getPrice2());
             layout.setPrice3(request.getPrice3());
 
-            if (!layout.getEvent().getId().equals(request.getEventId())) {
-                Optional<Event> eventOpt = eventRepository.findById(request.getEventId());
-                eventOpt.ifPresent(layout::setEvent);
-            }
-
             EventLayout updatedLayout = eventLayoutRepository.save(layout);
             return Optional.of(mapToResponse(updatedLayout));
         }
@@ -93,7 +78,6 @@ public class EventLayoutService {
         response.setPrice1(layout.getPrice1());
         response.setPrice2(layout.getPrice2());
         response.setPrice3(layout.getPrice3());
-        response.setEventId(layout.getEvent() != null ? layout.getEvent().getId() : null);
         return response;
     }
 }

@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EventService } from '../../services/event.service';
-import { EventDTORequest } from '../../models/EventDTO';
-
-type LayoutDTO = any;
+import { EventLayoutService } from '../../services/event-layout.service'; 
+import { EventLayoutDTO } from '../../models/EventDTO'; 
 
 @Component({
   selector: 'app-event-creation',
@@ -16,9 +15,15 @@ type LayoutDTO = any;
 })
 export class CreateEventComponent implements OnInit {
   eventForm: FormGroup;
-  layouts: LayoutDTO[] = [];
+  layouts: EventLayoutDTO[] = [];
+  isReady: boolean = false;
   
-  constructor(private fb: FormBuilder, private eventService: EventService) {
+  constructor(
+    private fb: FormBuilder, 
+    private eventService: EventService,
+    private layoutService: EventLayoutService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.eventForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
@@ -30,16 +35,11 @@ export class CreateEventComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.eventService.getLayouts().subscribe({
+    this.layoutService.getAllEventLayouts().subscribe({
       next: (data) => {
-        this.layouts = (data || []).map((layout: any) => {
-          const conformationValue = layout.conformation ?? layout.Conformation ?? layout.name ?? layout.label ?? layout.eventName ?? layout.string ?? '';
-          return {
-            ...layout,
-            id: layout.id ?? layout.eventId ?? layout.layoutId,
-            conformation: String(conformationValue)
-          };
-        });
+        this.layouts = data;
+        this.isReady = true;
+        this.cdr.detectChanges();
       },
       error: (err) => console.error('Error fetching layouts', err)
     });

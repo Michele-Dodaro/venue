@@ -3,6 +3,7 @@ package com.venue.app.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Entity
@@ -32,7 +33,4 @@ public class EventLayout {
     @Column(name = "price3", precision = 10, scale = 2)
     private BigDecimal price3;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
 }

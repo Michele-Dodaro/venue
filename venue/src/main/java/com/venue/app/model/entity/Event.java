@@ -29,4 +29,8 @@ public class Event {
     private Boolean active;
 
     private String genre;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "layout_id")
+    private EventLayout layout;
 }

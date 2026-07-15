@@ -1,0 +1,35 @@
+<div class="form-card">
+  <form [formGroup]="layoutForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="conformation">Conformazione:</label>
+      <input id="conformation" formControlName="conformation" type="text" />
+    </div>
+
+    <div>
+      <label for="rowField">Fila:</label>
+      <input id="rowField" formControlName="rowField" type="text" />
+    </div>
+
+    <div>
+      <label for="number">Numero:</label>
+      <input id="number" formControlName="number" type="number" />
+    </div>
+
+    <div>
+      <label for="price1">Prezzo 1:</label>
+      <input id="price1" formControlName="price1" type="number" />
+    </div>
+
+    <div>
+      <label for="price2">Prezzo 2:</label>
+      <input id="price2" formControlName="price2" type="number" />
+    </div>
+
+    <div>
+      <label for="price3">Prezzo 3:</label>
+      <input id="price3" formControlName="price3" type="number" />
+    </div>
+
+    <button type="submit" [disabled]="layoutForm.invalid">Crea Layout</button>
+  </form>
+</div>

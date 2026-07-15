@@ -9,6 +9,7 @@ import { MenuCategoryListComponent } from './components/menu-category-list/menu-
 import { UsersListComponent } from './components/users-list/users-list';
 import { UpdateMenuCategory } from './components/update-menu-category/update-menu-category';
 import { CreateMenuItems } from './components/create-menu-items/create-menu-items';
+import { CreateLayout} from './components/create-layout/create-layout';
 
 export const routes: Routes = [
     {
@@ -71,5 +72,10 @@ export const routes: Routes = [
         path: 'categories/:categories/items',
         component: CreateMenuItems,
         title: 'Crea Elemento Menu'
+    },
+    {
+        path:'event-layout',
+        component: CreateLayout,
+        title: 'Crea Layout Evento'
     }
 ];

@@ -3,11 +3,12 @@ package com.venue.app.service;
 import com.venue.app.model.dto.EventDTORequest;
 import com.venue.app.model.dto.EventDTOResponse;
 import com.venue.app.model.entity.Event;
+import com.venue.app.model.entity.EventLayout; // MODIFICA: importata entità EventLayout
+import com.venue.app.repository.EventLayoutRepository; // MODIFICA: importato EventLayoutRepository
 import com.venue.app.repository.EventRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.nio.channels.FileChannel;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -17,9 +18,11 @@ import java.util.stream.Collectors;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final EventLayoutRepository eventLayoutRepository;
 
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, EventLayoutRepository eventLayoutRepository) {
         this.eventRepository = eventRepository;
+        this.eventLayoutRepository = eventLayoutRepository;
     }
 
     public EventDTOResponse createEvent(EventDTORequest eventDTORequest) {
@@ -29,6 +32,13 @@ public class EventService {
         event.setDate(eventDTORequest.getDate() != null ? eventDTORequest.getDate() : LocalDateTime.now());
         event.setActive(eventDTORequest.getActive());
         event.setGenre(eventDTORequest.getGenre());
+
+        if (eventDTORequest.getLayoutId() != null) {
+            EventLayout layout = eventLayoutRepository.findById(eventDTORequest.getLayoutId())
+                    .orElseThrow(() -> new RuntimeException("Layout not found with id: " + eventDTORequest.getLayoutId()));
+            event.setLayout(layout);
+        }
+
         Event savedEvent = eventRepository.save(event);
         return EventDTOResponse.toDTO(savedEvent);
     }
@@ -48,6 +58,15 @@ public class EventService {
             event.setDate(eventDTORequest.getDate());
             event.setActive(eventDTORequest.getActive());
             event.setGenre(eventDTORequest.getGenre());
+
+            if (eventDTORequest.getLayoutId() != null) {
+                EventLayout layout = eventLayoutRepository.findById(eventDTORequest.getLayoutId())
+                        .orElseThrow(() -> new RuntimeException("Layout not found with id: " + eventDTORequest.getLayoutId()));
+                event.setLayout(layout);
+            } else {
+                event.setLayout(null);
+            }
+
             Event updatedEvent = eventRepository.save(event);
             return EventDTOResponse.toDTO(updatedEvent);
         }
@@ -63,17 +82,9 @@ public class EventService {
             System.out.println("Tentativo di eliminare evento inesistente: " + id);
         }
     }
+
     public Optional<EventDTOResponse> findById(Long id) {
         return eventRepository.findById(id)
-                .map(event -> {
-                    EventDTOResponse dto = new EventDTOResponse();
-                    dto.setId((event.getId()));
-                    dto.setName(event.getName());
-                    dto.setDescription(event.getDescription());
-                    dto.setDate(event.getDate());
-                    dto.setActive(event.getActive());
-                    dto.setGenre(event.getGenre());
-                    return dto;
-                });
+                .map(EventDTOResponse::toDTO);
     }
 }

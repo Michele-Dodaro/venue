@@ -10,7 +10,6 @@ public class EventLayoutDTORequest {
     private BigDecimal price1;
     private BigDecimal price2;
     private BigDecimal price3;
-    private Long eventId;
 
     public EventLayoutDTORequest() {
     }
@@ -22,7 +21,6 @@ public class EventLayoutDTORequest {
         this.price1 = price1;
         this.price2 = price2;
         this.price3 = price3;
-        this.eventId = eventId;
     }
 
     public String getConformation() {
@@ -73,11 +71,4 @@ public class EventLayoutDTORequest {
         this.price3 = price3;
     }
 
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
 }

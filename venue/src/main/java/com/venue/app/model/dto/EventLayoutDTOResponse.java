@@ -11,7 +11,6 @@ public class EventLayoutDTOResponse {
     private BigDecimal price1;
     private BigDecimal price2;
     private BigDecimal price3;
-    private Long eventId;
 
     public EventLayoutDTOResponse() {
     }
@@ -24,7 +23,6 @@ public class EventLayoutDTOResponse {
         this.price1 = price1;
         this.price2 = price2;
         this.price3 = price3;
-        this.eventId = eventId;
     }
 
     public Long getId() {
@@ -83,11 +81,4 @@ public class EventLayoutDTOResponse {
         this.price3 = price3;
     }
 
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
 }

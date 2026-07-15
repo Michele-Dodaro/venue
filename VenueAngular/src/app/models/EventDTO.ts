@@ -19,11 +19,12 @@ export interface EventDTOResponse {
 }
 
 export interface EventLayoutDTO {
-    id?: number;
-    conformation: string;
-    rowField: string;
-    number: number;
-    price1: bigint;
-    price2: bigint;
-    price3: bigint;
+  id?: number;
+  conformation: string;
+  rowField: string;
+  number: number;
+  price1: bigint;
+  price2: bigint;
+  price3: bigint;
+  eventId: number; 
 }

@@ -12,8 +12,9 @@ public class EventDTOResponse {
     private LocalDateTime date;
     private Boolean active;
     private String genre;
+    private Long layoutId;
 
-    public static EventDTOResponse toDTO(Event event ) {
+    public static EventDTOResponse toDTO(Event event) {
         EventDTOResponse eventDTOResponse = new EventDTOResponse();
         eventDTOResponse.setId(event.getId());
         eventDTOResponse.setName(event.getName());
@@ -21,6 +22,9 @@ public class EventDTOResponse {
         eventDTOResponse.setDate(event.getDate());
         eventDTOResponse.setActive(event.getActive());
         eventDTOResponse.setGenre(event.getGenre());
+
+        eventDTOResponse.setLayoutId(event.getLayout() != null ? event.getLayout().getId() : null);
+
         return eventDTOResponse;
     }
 
@@ -70,5 +74,13 @@ public class EventDTOResponse {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public Long getLayoutId() {
+        return layoutId;
+    }
+
+    public void setLayoutId(Long layoutId) {
+        this.layoutId = layoutId;
     }
 }

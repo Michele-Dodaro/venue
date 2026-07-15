@@ -2,7 +2,6 @@ package com.venue.app.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EventDTORequest {
@@ -13,13 +12,17 @@ public class EventDTORequest {
     private LocalDateTime date;
     private Boolean active;
     private String genre;
-    public EventDTORequest() {
-    }
+    private Long layoutId;
 
-    public EventDTORequest(String name, String description, LocalDateTime date, String genre, Boolean active) {
+    public EventDTORequest() {}
+
+    public EventDTORequest(String name, String description, LocalDateTime date, String genre, Boolean active, Long layoutId) {
         this.name = name;
         this.description = description;
         this.date = date;
+        this.genre = genre;
+        this.active = active;
+        this.layoutId = layoutId;
     }
 
     public String getName() {
@@ -60,5 +63,13 @@ public class EventDTORequest {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public Long getLayoutId() {
+        return layoutId;
+    }
+
+    public void setLayoutId(Long layoutId) {
+        this.layoutId = layoutId;
     }
 }
