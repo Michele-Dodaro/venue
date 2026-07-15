@@ -8,6 +8,7 @@ import { CreateMenuCategoryComponent } from './components/menu-category-creation
 import { MenuCategoryListComponent } from './components/menu-category-list/menu-category-list';
 import { UsersListComponent } from './components/users-list/users-list';
 import { UpdateMenuCategory } from './components/update-menu-category/update-menu-category';
+import { CreateMenuItems } from './components/create-menu-items/create-menu-items';
 
 export const routes: Routes = [
     {
@@ -64,5 +65,11 @@ export const routes: Routes = [
     {
         path: 'categories/:categories/items/:items',
         component: MenuCategoryListComponent,
+        title: 'Categoria Menu'
+    },
+    {
+        path: 'categories/:categories/items',
+        component: CreateMenuItems,
+        title: 'Crea Elemento Menu'
     }
 ];

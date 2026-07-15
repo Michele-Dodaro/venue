@@ -1,0 +1,28 @@
+<form [formGroup]="menuItemForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="plate">Nome Piatto:</label>
+    <input id="plate" formControlName="plate" type="text" />
+  </div>
+
+  <div>
+    <label for="type">Categoria:</label>
+    <select id="type" formControlName="type">
+      <option value="" disabled>Seleziona una categoria</option>
+      <option *ngFor="let cat of categories" [value]="cat.type">
+        {{ cat.type }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="description">Descrizione:</label>
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+
+  <div>
+    <label for="originalPrice">Prezzo:</label>
+    <input id="originalPrice" formControlName="originalPrice" type="number" />
+  </div>
+
+  <button type="submit" [disabled]="menuItemForm.invalid">Salva</button>
+</form>
