@@ -17,15 +17,6 @@ CREATE TABLE users (
 );
 
 
-CREATE TABLE event (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    genre VARCHAR(100),
-    description TEXT,
-    date TIMESTAMP NOT NULL,
-    active BOOLEAN NOT NULL
-);
-
 CREATE TABLE event_layout (
     id SERIAL PRIMARY KEY,
     conformation VARCHAR(50),
@@ -33,8 +24,17 @@ CREATE TABLE event_layout (
     number INTEGER NOT NULL,
     price1 NUMERIC(10, 2) NOT NULL,
     price2 NUMERIC(10, 2),
-    price3 NUMERIC(10, 2),
-    event_id INT NOT NULL REFERENCES event(id) ON DELETE CASCADE
+    price3 NUMERIC(10, 2)
+);
+
+CREATE TABLE event (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    genre VARCHAR(100),
+    description TEXT,
+    date TIMESTAMP NOT NULL,
+    active BOOLEAN NOT NULL,
+    layout_id INTEGER REFERENCES event_layout(id) ON DELETE SET NULL
 );
 
 
@@ -108,17 +108,15 @@ INSERT INTO menu_items (plate, description, original_price, menu_categories_id) 
     ('Espresso', 'Single shot of Italian coffee', 2.50, 4),
     ('Sparkling Water', 'Bottle of sparkling mineral water', 3.00, 4);
 
-INSERT INTO event (name, genre, description, date, active) VALUES
-('Iron Maiden Tribute Night', 'Heavy Metal', 'Una serata dedicata ai giganti della NWOBHM.', '2026-08-15 21:00:00', true),
-('Grunge Revival Session', 'Rock/Grunge', 'Tutti i successi degli anni 90 che hanno fatto la storia.', '2026-08-22 22:00:00', true),
-('Thrash Attack', 'Thrash Metal', 'Tre band locali che spingono al limite del BPM.', '2026-09-02 20:30:00', true),
-('Alternative Rock Unplugged', 'Rock', 'Una veste acustica per i classici dell alt-rock moderno.', '2026-09-10 19:30:00', true),
-('Night of Doom', 'Doom Metal', 'Atmosfere cupe e ritmi lenti per i veri appassionati.', '2026-09-18 21:30:00', true);
+INSERT INTO event_layout (conformation, row, number, price1, price2, price3) VALUES
+('prova', '3', 4, 19.90, 16.90, 14.90);
 
-
-
-INSERT INTO event_layout (conformation, row, number, price1, price2, price3, event_id) VALUES
-('prova',3,4,19.90,16.90,14.90,1);
+INSERT INTO event (name, genre, description, date, active, layout_id) VALUES
+('Iron Maiden Tribute Night', 'Heavy Metal', 'Una serata dedicata ai giganti della NWOBHM.', '2026-08-15 21:00:00', true, 1),
+('Grunge Revival Session', 'Rock/Grunge', 'Tutti i successi degli anni 90 che hanno fatto la storia.', '2026-08-22 22:00:00', true, NULL),
+('Thrash Attack', 'Thrash Metal', 'Tre band locali che spingono al limite del BPM.', '2026-09-02 20:30:00', true, NULL),
+('Alternative Rock Unplugged', 'Rock', 'Una veste acustica per i classici dell alt-rock moderno.', '2026-09-10 19:30:00', true, NULL),
+('Night of Doom', 'Doom Metal', 'Atmosfere cupe e ritmi lenti per i veri appassionati.', '2026-09-18 21:30:00', true, NULL);
 
 SELECT * from menu_items;
 
