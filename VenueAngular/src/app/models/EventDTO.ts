@@ -21,10 +21,24 @@ export interface EventDTOResponse {
 export interface EventLayoutDTO {
   id?: number;
   conformation: string;
-  rowField: string;
+  rowField: number;
   number: number;
   price1: bigint;
   price2: bigint;
   price3: bigint;
   eventId: number; 
+}
+
+export interface TicketDTORequest {
+    rowField: number;
+    columnField: number;
+    layoutId: number;
+}
+
+export interface TicketDTOResponse {
+    id: number;
+    rowField: number;
+    columnField: number;
+    layoutId: number;
+    available: boolean;
 }

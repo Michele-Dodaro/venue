@@ -1,0 +1,133 @@
+.seat-square.booked {
+  background-color: #e74c3c;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.seat-square.booked:hover {
+  transform: none;
+  background-color: #e74c3c;
+}
+.cinema-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.message,
+.event-summary,
+.layout-summary,
+.actions {
+  margin-bottom: 16px;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #f4f6f8;
+}
+
+.message.error {
+  background: #fdecea;
+  color: #a61b1b;
+}
+
+.message.success {
+  background: #e8f7ee;
+  color: #1f7a3f;
+}
+
+.event-summary h2 {
+  margin: 0 0 8px;
+}
+
+.layout-summary {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: #666;
+}
+
+.screen {
+  margin: 24px auto 32px;
+  max-width: 420px;
+  padding: 10px 16px;
+  border-radius: 0 0 18px 18px;
+  background: linear-gradient(90deg, #d9d9d9, #f4f4f4, #d9d9d9);
+  text-align: center;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: #444;
+}
+
+.seating-area {
+  display: grid;
+  gap: 12px;
+}
+
+.seat-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.row-label {
+  font-weight: 600;
+}
+
+.seats-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.seat-square {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.seat-square:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.seat-square.selected {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.seat-square.booked {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.seat-square.booked:hover {
+  transform: none;
+  background-color: #e74c3c;
+}
+
+.confirm-btn {
+  min-width: 200px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #111827;
+  color: #fff;
+  cursor: pointer;
+}
+
+.confirm-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

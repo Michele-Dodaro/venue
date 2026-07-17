@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS reservations CASCADE;
 DROP TABLE IF EXISTS event_layout CASCADE;
 DROP TABLE IF EXISTS event CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS ticket CASCADE;
 
 
 CREATE TABLE users (
@@ -20,7 +21,7 @@ CREATE TABLE users (
 CREATE TABLE event_layout (
     id SERIAL PRIMARY KEY,
     conformation VARCHAR(50),
-    row VARCHAR(50),
+    row INTEGER NOT NULL,
     number INTEGER NOT NULL,
     price1 NUMERIC(10, 2) NOT NULL,
     price2 NUMERIC(10, 2),
@@ -86,7 +87,13 @@ CREATE TABLE promotion_items (
     menu_items_id INTEGER REFERENCES menu_items(id) ON DELETE CASCADE,
     event_layout_id INT REFERENCES event_layout(id) ON DELETE CASCADE
 );
-
+CREATE TABLE ticket (
+    id SERIAL PRIMARY KEY,
+    row_field VARCHAR(10) NOT NULL,
+    column_field INT NOT NULL,
+    layout_id INTEGER REFERENCES event_layout(id) ON DELETE SET NULL,
+    avaliable BOOLEAN NOT NULL
+);
 
 
 INSERT INTO menu_categories (type) VALUES
@@ -121,3 +128,4 @@ INSERT INTO event (name, genre, description, date, active, layout_id) VALUES
 SELECT * from menu_items;
 
 SELECT * FROM menu_items m WHERE  m.menu_categories_id = 1
+select * from public.event_layout

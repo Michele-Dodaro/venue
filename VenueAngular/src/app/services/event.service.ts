@@ -9,8 +9,7 @@ import { EventLayoutDTO } from '../models/EventDTO';
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = '/api/events';
-  private layoutUrl = '/api/event-layouts';
+  private apiUrl = 'http://localhost:8080/api/events';
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +34,7 @@ export class EventService {
   }
   
   getLayouts(): Observable<EventLayoutDTO[]> {
-    return this.http.get<EventLayoutDTO[]>(this.layoutUrl);
+    return this.http.get<EventLayoutDTO[]>('http://localhost:8080/api/event-layouts');
   }
 
 }

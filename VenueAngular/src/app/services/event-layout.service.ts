@@ -16,7 +16,7 @@ export class EventLayoutService {
   }
 
   getAllEventLayouts(): Observable<EventLayoutDTO[]> {
-    return this.http.get<EventLayoutDTO[]>(this.apiUrl);
+    return this.http.get<EventLayoutDTO[]>(`${this.apiUrl}/posti`);
   }
 
   getEventLayoutById(id: number): Observable<EventLayoutDTO> {

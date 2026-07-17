@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EventService } from '../../services/event.service';
-import { EventLayoutService } from '../../services/event-layout.service'; 
-import { EventLayoutDTO } from '../../models/EventDTO'; 
+import { EventDTORequest } from '../../models/EventDTO';
+
+type LayoutDTO = any;
 
 @Component({
   selector: 'app-event-creation',
@@ -15,13 +16,11 @@ import { EventLayoutDTO } from '../../models/EventDTO';
 })
 export class CreateEventComponent implements OnInit {
   eventForm: FormGroup;
-  layouts: EventLayoutDTO[] = [];
-  isReady: boolean = false;
+  layouts: LayoutDTO[] = [];
   
   constructor(
     private fb: FormBuilder, 
     private eventService: EventService,
-    private layoutService: EventLayoutService,
     private cdr: ChangeDetectorRef
   ) {
     this.eventForm = this.fb.group({
@@ -35,11 +34,19 @@ export class CreateEventComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.layoutService.getAllEventLayouts().subscribe({
+    this.eventService.getLayouts().subscribe({
       next: (data) => {
-        this.layouts = data;
-        this.isReady = true;
-        this.cdr.detectChanges();
+        console.log('Layouts ricevuti:', data);
+        this.layouts = (data || []).map((layout: any) => {
+          const conformationValue = layout.conformation ?? layout.Conformation ?? layout.name ?? layout.label ?? layout.eventName ?? layout.string ?? '';
+          return {
+            ...layout,
+            id: layout.id ?? layout.eventId ?? layout.layoutId,
+            conformation: String(conformationValue)
+          };
+        });
+        console.log('Layouts elaborati:', this.layouts);
+        this.cdr.markForCheck();
       },
       error: (err) => console.error('Error fetching layouts', err)
     });

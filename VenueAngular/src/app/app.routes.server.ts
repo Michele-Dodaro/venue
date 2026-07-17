@@ -10,6 +10,22 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
+    path: 'events/:id/seats',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'edit-category/:name',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'categories/:categories/items/:items',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'categories/:categories/items',
+    renderMode: RenderMode.Client
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }

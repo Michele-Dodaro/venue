@@ -43,6 +43,8 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/event-layouts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/layout/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/tickets").permitAll()
                         .requestMatchers("/api/menu/**").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +17,7 @@ export class LoginComponent {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
 onLogin() {
   if (!this.email || !this.password) return;
@@ -24,7 +25,8 @@ onLogin() {
   this.isLoading = true;
   this.authService.login(this.email, this.password).subscribe({
     next: () => {
-      this.router.navigate(['/events']); 
+      const redirectTo = this.route.snapshot.queryParamMap.get('redirectTo');
+      void this.router.navigateByUrl(redirectTo || '/events');
     },
     error: (err) => {
       console.error('Login failed', err);

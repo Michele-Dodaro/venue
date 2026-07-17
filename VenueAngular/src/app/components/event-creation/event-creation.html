@@ -2,30 +2,31 @@
   <h2>Crea Nuovo Evento</h2>
   
   <div class="form-card">
-    @if (isReady) {
-      <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-        <input type="text" formControlName="name" placeholder="Nome Evento">
-        <input type="text" formControlName="description" placeholder="Descrizione">
-        <input type="text" formControlName="genre" placeholder="Genere Musicale">
-        <input type="datetime-local" formControlName="date">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+      <input type="text" formControlName="name" placeholder="Nome Evento">
       
-        <select formControlName="layoutId">
-          <option [ngValue]="null" disabled>Seleziona un layout</option>
-          @for (layout of layouts; track layout.id) {
-            <option [ngValue]="layout.id">{{ layout.conformation }}</option>
-          }
-        </select>
+      <input type="text" formControlName="description" placeholder="Descrizione">
       
-        <label class="checkbox-container">
-          <input type="checkbox" formControlName="active">
-          Evento Attivo
-        </label>
-        
-        <div class="button-group">
-          <button type="button" class="back-btn" routerLink="/events">Torna alla lista</button>
-          <button type="submit" [disabled]="eventForm.invalid">Crea</button>
-        </div>
-      </form>
-    }
+      <input type="text" formControlName="genre" placeholder="Genere Musicale">
+    
+      <input type="datetime-local" formControlName="date">
+    
+      <select formControlName="layoutId">
+        <option [ngValue]="null" disabled>Seleziona un layout</option>
+        @for (layout of layouts; track layout.id) {
+          <option [ngValue]="layout.id">{{ layout.conformation }}</option>
+        }
+      </select>
+    
+      <label class="checkbox-container">
+        <input type="checkbox" formControlName="active">
+        Evento Attivo
+      </label>
+      
+      <div class="button-group">
+        <button type="button" class="back-btn" routerLink="/events">Torna alla lista</button>
+        <button type="submit" [disabled]="eventForm.invalid">Crea</button>
+      </div>
+    </form>
   </div>
 </div>

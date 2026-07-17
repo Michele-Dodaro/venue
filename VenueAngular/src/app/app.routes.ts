@@ -10,6 +10,8 @@ import { UsersListComponent } from './components/users-list/users-list';
 import { UpdateMenuCategory } from './components/update-menu-category/update-menu-category';
 import { CreateMenuItems } from './components/create-menu-items/create-menu-items';
 import { CreateLayout} from './components/create-layout/create-layout';
+import { SelectSeat } from './components/select-seat/select-seat';
+
 
 export const routes: Routes = [
     {
@@ -77,5 +79,10 @@ export const routes: Routes = [
         path:'event-layout',
         component: CreateLayout,
         title: 'Crea Layout Evento'
-    }
+    },
+    {
+        path: 'events/:id/seats',
+        component: SelectSeat,
+        title: 'Seleziona Posti'
+    },
 ];

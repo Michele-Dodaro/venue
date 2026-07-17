@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class EventLayoutDTORequest {
 
     private String conformation;
-    private String rowField;
+    private Integer rowField;
     private Integer number;
     private BigDecimal price1;
     private BigDecimal price2;
@@ -14,7 +14,7 @@ public class EventLayoutDTORequest {
     public EventLayoutDTORequest() {
     }
 
-    public EventLayoutDTORequest(String conformation, String rowField, Integer number, BigDecimal price1, BigDecimal price2, BigDecimal price3, Long eventId) {
+    public EventLayoutDTORequest(String conformation, Integer rowField, Integer number, BigDecimal price1, BigDecimal price2, BigDecimal price3, Long eventId) {
         this.conformation = conformation;
         this.rowField = rowField;
         this.number = number;
@@ -31,11 +31,11 @@ public class EventLayoutDTORequest {
         this.conformation = conformation;
     }
 
-    public String getRowField() {
+    public Integer getRowField() {
         return rowField;
     }
 
-    public void setRowField(String rowField) {
+    public void setRowField(Integer rowField) {
         this.rowField = rowField;
     }
 

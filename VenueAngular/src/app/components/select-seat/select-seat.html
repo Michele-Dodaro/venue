@@ -1,0 +1,63 @@
+<div class="cinema-container">
+  @if (isLoading()) {
+    <p class="message" aria-live="polite">Caricamento posti...</p>
+  } @else {
+    @if (errorMessage()) {
+      <p class="message error" role="alert">{{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+      <p class="message success" role="status">{{ successMessage() }}</p>
+    }
+
+    @if (event(); as currentEvent) {
+      <section class="event-summary">
+        <h2>{{ currentEvent.name }}</h2>
+        <p>Seleziona un posto disponibile per l'evento.</p>
+      </section>
+    }
+
+    @if (layout(); as currentLayout) {
+      <div class="layout-summary">
+        <span>File: {{ currentLayout.rowField }}</span>
+        <span>Posti per fila: {{ currentLayout.number }}</span>
+      </div>
+    }
+
+    <div class="screen" aria-hidden="true">SCREEN</div>
+
+    <div class="seating-area">
+      @for (row of seatsGrid(); track $index) {
+        <div class="seat-row">
+          <div class="row-label">Fila {{ row[0]?.row }}</div>
+
+          <div class="seats-wrapper">
+            @for (seat of row; track seat.row + '-' + seat.column) {
+              <button
+                type="button"
+                class="seat-square"
+                [class.selected]="seat.status === 'selected'"
+                [class.booked]="seat.status === 'occupied'"
+                [disabled]="seat.status === 'occupied'"
+                [attr.aria-pressed]="seat.status === 'selected'"
+                [attr.aria-label]="'Fila ' + seat.row + ', posto ' + seat.column + ', ' + seatLabel(seat)"
+                (click)="selectSeat(seat)">
+                {{ seat.column }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="confirm-btn"
+        [disabled]="!canConfirm()"
+        (click)="confirmPurchase()">
+        Conferma acquisto
+      </button>
+    </div>
+  }
+</div>
