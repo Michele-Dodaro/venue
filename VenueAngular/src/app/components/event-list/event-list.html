@@ -1,60 +1,70 @@
 <div class="container">
-  
-  <h2>Lista Eventi</h2>
-  
+  <div class="search-container" style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
+    <input type="text" [(ngModel)]="searchKeyword" placeholder="Cerca eventi..." (keyup.enter)="onSearch()">
+    <button (click)="onSearch()">Cerca</button>
+    @if (isLoggedIn()) {
+    <button routerLink="/events/crea">Aggiungi evento</button>
+    <button routerLink="/event-layout">Aggiungi layout evento</button>
+    }
+  </div>
+
   <ul class="event-list">
-    @for (event of events; track event.id) {
-      @if (event.active  || isLoggedIn()) {
-        <li class="event-card" [class.inactive-event]="!event.active">
-          <a [routerLink]="['/events', event.id]" style="display: block; text-decoration: none; color: inherit;">
-            @if (event.image && event.image.trim() !== '') {
-              <div class="event-image">
-                <img [src]="event.image" [alt]="event.name">
-              </div>
-            } @else {
-              <div class="event-image-placeholder">
-                <span>Nessuna immagine</span>
-              </div>
-            }
-            <div class="event-info">
-              <h3>{{ event.name }}</h3>
-              <p class="description">{{ event.description }}</p>
-              <p class="description"><strong>Genere:</strong> {{ event.genre }}</p>
-              <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
-            </div>
-          </a>
-        </li>
-      }
+    @for (event of paginatedEvents; track event.id) {
+    <li class="event-card" [class.inactive-event]="!event.active">
+      <a [routerLink]="['/events', event.id]" style="display: block; text-decoration: none; color: inherit;">
+        @if (event.image && event.image.trim() !== '') {
+        <div class="event-image">
+          <img [src]="event.image" [alt]="event.name">
+        </div>
+        } @else {
+        <div class="event-image-placeholder">
+          <span>Nessuna immagine</span>
+        </div>
+        }
+        <div class="event-info">
+          <h3>{{ event.name }}</h3>
+          <p class="description">{{ event.description }}</p>
+          <p class="description"><strong>Genere:</strong> {{ event.genre }}</p>
+          <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
+        </div>
+      </a>
+    </li>
     } @empty {
-      <li class="no-data" style="list-style: none;">Nessun evento trovato nel database.</li>
+    <li class="no-data" style="list-style: none;">Nessun evento trovato nel database.</li>
     }
   </ul>
+
+  <div class="pagination-controls" style="margin-top: 20px; margin-bottom: 20px; display: flex; gap: 10px;">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Precedente</button>
+    <span>Pagina {{ currentPage }} di {{ totalPages || 1 }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages || totalPages === 0">Successivo</button>
+  </div>
 
   <button class="info-fab" (click)="openModal()" type="button" title="Informazioni">
     <img src="./question.png" alt="Informazioni">
   </button>
 
   @if (isModalOpen()) {
-    <div class="modal-overlay" (click)="closeModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2>Informazioni</h2>
-          <button class="close-btn" (click)="closeModal()" type="button">✕</button>
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Informazioni</h2>
+        <button class="close-btn" (click)="closeModal()" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="info-item">
+          <strong>Location:</strong>
+          <p>{{ venueLocation }}</p>
         </div>
-        <div class="modal-body">
-          <div class="info-item">
-            <strong>Location:</strong>
-            <p>{{ venueLocation }}</p>
-          </div>
-          <div class="info-item">
-            <strong>Contatti:</strong>
-            <p>{{ venueContacts }}</p>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="close-modal-btn" (click)="closeModal()" type="button">Chiudi</button>
+        <div class="info-item">
+          <strong>Contatti:</strong>
+          <p>{{ venueContacts }}</p>
         </div>
       </div>
+      <div class="modal-footer">
+        <button class="close-modal-btn" (click)="closeModal()" type="button">Chiudi</button>
+      </div>
     </div>
+  </div>
   }
 </div>

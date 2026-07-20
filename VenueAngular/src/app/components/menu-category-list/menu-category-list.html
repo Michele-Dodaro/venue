@@ -1,5 +1,14 @@
 <div class="menu-container">
   <h2>Menu</h2>
+
+  @if (isLoggedIn) {
+    <div class="admin-actions-bar" style="display: flex; gap: 10px; margin-bottom: 20px;">
+      <button routerLink="/add-button/menu-category-creation">Crea Categoria</button>
+      <button routerLink="/categories/menu/items">Crea Menu Item</button>
+      <button routerLink="/menu-promotions">Gestione Offerte</button>
+    </div>
+  }
+
   @if (loading) {
     <p>Caricamento categorie...</p>
   } @else if (errorMessage) {
@@ -49,7 +58,10 @@
           }
         </ul>
         @if (isLoggedIn) {
-          <button [routerLink]="['/edit-category', entry.category.type]">Modifica</button>
+          <!-- MODIFICA: Aggiunto un wrapper flex per allineare il bottone di modifica categoria -->
+          <div class="category-actions" style="margin-top: 15px;">
+            <button [routerLink]="['/edit-category', entry.category.type]">Modifica Categoria</button>
+          </div>
         }
       </section>
     } @empty {

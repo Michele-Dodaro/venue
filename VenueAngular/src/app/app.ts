@@ -23,4 +23,11 @@ export class AppComponent {
     this.authService.logout();
     window.location.href = '/';
   }
+  public translateToEnglish(): void {
+    const selectelement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (selectelement) {
+      selectelement.value = 'en';
+      selectelement.dispatchEvent(new Event('change'));
+    }
+  }
 }

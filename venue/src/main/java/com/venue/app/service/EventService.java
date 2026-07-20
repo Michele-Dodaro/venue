@@ -175,4 +175,28 @@ public class EventService {
                     return dto;
                 });
     }
+    public List<EventDTOResponse> searchEvents(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return findAll();
+        }
+        String lowerKeyword = keyword.toLowerCase();
+
+        return eventRepository.findAll().stream()
+                .filter(event ->
+                        (event.getName() != null && event.getName().toLowerCase().contains(lowerKeyword)) ||
+                                (event.getDescription() != null && event.getDescription().toLowerCase().contains(lowerKeyword)) ||
+                                (event.getGenre() != null && event.getGenre().toLowerCase().contains(lowerKeyword))
+                )
+                .map(event -> {
+                    EventDTOResponse dto = EventDTOResponse.toDTO(event);
+                    String image = dto.getImage();
+                    if (image == null || image.isEmpty() || UrlUtil.validateAndSanitizeUrl(image) == null) {
+                        dto.setImage(DEFAULT_IMAGE);
+                    } else {
+                        dto.setImage(UrlUtil.validateAndSanitizeUrl(image));
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }

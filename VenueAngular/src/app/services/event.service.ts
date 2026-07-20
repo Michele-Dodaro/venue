@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EventDTORequest } from '../models/EventDTO';
 import { EventDTOResponse } from '../models/EventDTO';
@@ -36,5 +36,8 @@ export class EventService {
   getLayouts(): Observable<EventLayoutDTO[]> {
     return this.http.get<EventLayoutDTO[]>('http://localhost:8080/api/event-layouts');
   }
-
+    searchEvents(keyword: string): Observable<EventDTOResponse[]> {
+    const params = new HttpParams().set('keyword', keyword);
+    return this.http.get<EventDTOResponse[]>(`${this.apiUrl}/search`, { params });
+  }
 }

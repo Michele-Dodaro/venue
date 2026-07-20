@@ -98,17 +98,21 @@ CREATE TABLE ticket (
 INSERT INTO users (email, password) VALUES ('michele@prova.com','$2a$10$.qgWYq/4aIufTyk69iUdBOtGIN1p6j/pplEAkXV2.405quxNCusBa');
 
 
--- MODIFICA: added event layouts with Italian names
-INSERT INTO event_layout (conformation, row, number, price1, price2, price3) VALUES
-('Parterre', 6, 7, 15.00, 12.00, 10.00),
-('Balconata VIP', 5, 5, 40.00, 35.00, 30.00),
-('Tavolo Standard', 10, 10, 20.00, 15.00, 10.00);
+-- MODIFICA: added event layouts with Italian names including id 4
+INSERT INTO event_layout (id, conformation, row, number, price1, price2, price3) VALUES
+(1, 'Parterre', 6, 7, 15.00, 12.00, 10.00),
+(2, 'Balconata VIP', 5, 5, 40.00, 35.00, 30.00),
+(3, 'Tavolo Standard', 10, 10, 20.00, 15.00, 10.00),
+(4, 'Tribuna Centrale', 8, 10, 30.00, 25.00, 20.00);
 
--- MODIFICA: created upcoming events with real image URLs and Italian descriptions
+-- MODIFICA: created upcoming events with real image URLs and Italian descriptions including 6 items
 INSERT INTO event (image, name, genre, description, date, active, layout_id) VALUES
 ('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'Tributo Iron Maiden', 'Heavy Metal', 'La serata tributo definitiva agli Iron Maiden.', '2026-08-15 22:00:00', TRUE, 1),
 ('https://images.unsplash.com/photo-1546708770-589dab7b22c7?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'Festival Sangue e Budella', 'Death Metal', 'Gruppi death metal locali che ti sciolgono la faccia.', '2026-08-22 21:00:00', TRUE, 1),
-('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7', 'Sessione Acustica Doom', 'Doom Metal', 'Lento, pesante e acustico.', '2026-09-05 20:30:00', TRUE, 3);
+('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7', 'Sessione Acustica Doom', 'Doom Metal', 'Lento, pesante e acustico.', '2026-09-05 20:30:00', TRUE, 3),
+('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=1170&auto=format&fit=crop', 'Rock Legends Night', 'Classic Rock', 'Le migliori cover rock degli anni settanta e ottanta.', '2026-09-12 21:30:00', TRUE, 2),
+('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1074&auto=format&fit=crop', 'Electro Cyberpunk Rave', 'Electronic', 'Sintetizzatori aggressivi e visual futuristici.', '2026-09-19 23:00:00', TRUE, 4),
+('https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=1073&auto=format&fit=crop', 'Jazz Underground', 'Jazz Fusion', 'Improvvisazioni notturne in un atmosfera intima.', '2026-09-26 21:00:00', TRUE, 2);
 
 -- MODIFICA: registered some sample reservations
 INSERT INTO reservations (event_id, customer_name, customer_email, customer_phone, number_of_participants, total_amount, payment_status, reservation_status) VALUES
@@ -155,4 +159,3 @@ INSERT INTO promotion (promotion_table, promotion_price, expires_in) VALUES
 INSERT INTO promotion_items (promotion_id, menu_items_id, event_layout_id) VALUES
 (1, 2, 3),
 (2, 1, 1);
-

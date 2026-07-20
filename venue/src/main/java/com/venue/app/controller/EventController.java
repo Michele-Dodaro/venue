@@ -49,6 +49,11 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<EventDTOResponse>> searchEvents(@RequestParam String keyword) {
+        List<EventDTOResponse> events = eventService.searchEvents(keyword);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
