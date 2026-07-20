@@ -5,6 +5,7 @@ export interface EventDTORequest {
   layoutId: number;
   active: boolean;
   genre: string;
+  image: string;
 }
 
 export interface EventDTOResponse {
@@ -15,7 +16,9 @@ export interface EventDTOResponse {
   layoutId: number;
   active: boolean;
   genre: string;
-
+  image: string;
+  location?: string;
+  contacts?: string;
 }
 
 export interface EventLayoutDTO {
@@ -23,9 +26,9 @@ export interface EventLayoutDTO {
   conformation: string;
   rowField: number;
   number: number;
-  price1: bigint;
-  price2: bigint;
-  price3: bigint;
+  price1: number;
+  price2: number;
+  price3: number;
   eventId: number; 
 }
 

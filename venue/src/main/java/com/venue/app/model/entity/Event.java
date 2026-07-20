@@ -17,6 +17,9 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
+    private String image;
+
     @Column(length = 100, nullable = false)
     private String name;
 

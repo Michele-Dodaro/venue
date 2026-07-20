@@ -58,3 +58,62 @@ button {
 button:hover {
   background-color: #fff;
 }
+
+/* RESPONSIVE - Tablet */
+@media (max-width: 768px) {
+  .login-box {
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  h2 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  input {
+    padding: 10px;
+  }
+
+  button {
+    padding: 10px;
+  }
+}
+
+/* RESPONSIVE - Telefoni verticali */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-box {
+    padding: 25px 18px;
+    width: 100%;
+    max-width: 100%;
+    border-top-width: 4px;
+  }
+
+  h2 {
+    font-size: 1.1em;
+    margin-bottom: 18px;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}

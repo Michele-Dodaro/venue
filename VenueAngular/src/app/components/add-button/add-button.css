@@ -29,3 +29,32 @@
 .add-user-btn {
   border-left-color: #333;
 }
+
+/* RESPONSIVE - Tablet */
+@media (max-width: 768px) {
+  .add-actions {
+    margin-bottom: 12px;
+  }
+
+  .add-event-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* RESPONSIVE - Telefoni verticali */
+@media (max-width: 480px) {
+  .add-actions {
+    margin-bottom: 10px;
+  }
+
+  .add-event-btn {
+    padding: 12px;
+    font-size: 13px;
+    border-left-width: 4px;
+  }
+
+  .add-event-link {
+    display: block;
+  }
+}

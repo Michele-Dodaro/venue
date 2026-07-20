@@ -17,6 +17,7 @@ type LayoutDTO = any;
 export class CreateEventComponent implements OnInit {
   eventForm: FormGroup;
   layouts: LayoutDTO[] = [];
+  imagePreview: string | null = null;
   
   constructor(
     private fb: FormBuilder, 
@@ -29,7 +30,8 @@ export class CreateEventComponent implements OnInit {
       date: ['', Validators.required],
       layoutId: [null, Validators.required],
       active: [true],
-      genre: ['']
+      genre: [''],
+      image: ['', Validators.required]
     });
   }
 
@@ -58,6 +60,18 @@ export class CreateEventComponent implements OnInit {
         next: (res) => console.log('Creato!', res),
         error: (err) => console.error('Errore!', err)
       });
+    }
+  }
+
+  onImageSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+        this.eventForm.patchValue({ image: this.imagePreview });
+      };
+      reader.readAsDataURL(file);
     }
   }
 }

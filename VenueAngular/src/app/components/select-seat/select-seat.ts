@@ -16,7 +16,7 @@ export interface Seat {
   row: number;
   column: number;
   status: 'available' | 'occupied' | 'selected';
-  price?: bigint;
+  price?: number;
 }
 
 @Component({
@@ -83,6 +83,18 @@ export class SelectSeat implements OnInit {
       return;
     }
 
+    // Cerca il prezzo del posto nella griglia se non è disponibile
+    let seatPrice = seat.price;
+    if (seatPrice === undefined) {
+      for (const row of this.seatsGrid()) {
+        const foundSeat = row.find(s => s.row === seat.row && s.column === seat.column);
+        if (foundSeat) {
+          seatPrice = foundSeat.price;
+          break;
+        }
+      }
+    }
+
     const updatedGrid = this.seatsGrid().map(row =>
       row.map(s => {
         if (currentSeat && s.row === currentSeat.row && s.column === currentSeat.column) {
@@ -95,7 +107,7 @@ export class SelectSeat implements OnInit {
       })
     );
     this.seatsGrid.set(updatedGrid);
-    this.selectedSeat.set({ ...seat, status: 'selected', price: seat.price });
+    this.selectedSeat.set({ ...seat, status: 'selected', price: seatPrice });
     this.successMessage.set(null);
   }
 
@@ -103,12 +115,6 @@ export class SelectSeat implements OnInit {
     const seat = this.selectedSeat();
     const event = this.event();
     const layout = this.layout();
-
-    if (!this.authService.isLoggedIn()) {
-      this.errorMessage.set('Sessione non valida. Effettua di nuovo il login per completare l\'acquisto.');
-      this.successMessage.set(null);
-      return;
-    }
 
     if (!seat || !event || !layout) {
       this.errorMessage.set('Errore nel caricamento dei dati. Riprova.');
@@ -199,16 +205,16 @@ export class SelectSeat implements OnInit {
     });
   }
 
-  private calculateSeatPrice(row: number, totalRows: number, layout: EventLayoutDTO): bigint {
+  private calculateSeatPrice(row: number, totalRows: number, layout: EventLayoutDTO): number {
     const size1 = Math.floor(totalRows / 3);
     const size2 = Math.floor((totalRows - size1) / 2);
     
     if (row <= size1) {
-      return layout.price1;
+      return layout.price1 ?? 0;
     } else if (row <= size1 + size2) {
-      return layout.price2;
+      return layout.price2 ?? 0;
     } else {
-      return layout.price3;
+      return layout.price3 ?? 0;
     }
   }
 }

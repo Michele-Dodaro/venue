@@ -207,19 +207,141 @@ legend {
 }
 
 @media (max-width: 600px) {
+  .payment-container {
+    padding: 15px;
+    min-height: 100vh;
+  }
+
   .payment-card {
-    padding: 30px 20px;
+    padding: 25px 18px;
+    max-width: 100%;
   }
 
   .payment-card h1 {
-    font-size: 24px;
+    font-size: 22px;
+    margin-bottom: 25px;
   }
 
-  .actions {
-    grid-template-columns: 1fr;
+  .payment-card h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .booking-summary {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .summary-item {
+    padding: 8px 0;
+    font-size: 0.9em;
+  }
+
+  .summary-item .label {
+    font-size: 0.85em;
+  }
+
+  .summary-item .value {
+    font-size: 0.85em;
+  }
+
+  legend {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    padding: 10px;
+    font-size: 14px;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-row .form-group {
+    margin-bottom: 0;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .pay-btn,
+  .cancel-btn {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .security-notice {
+    font-size: 11px;
+    padding-top: 12px;
+  }
+
+  .message {
+    padding: 10px;
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 380px) {
+  .payment-container {
+    padding: 10px;
+  }
+
+  .payment-card {
+    padding: 20px 15px;
+  }
+
+  .payment-card h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .payment-card h2 {
+    font-size: 14px;
+  }
+
+  .booking-summary {
+    padding: 12px;
+  }
+
+  .summary-item {
+    padding: 6px 0;
+    font-size: 0.8em;
+  }
+
+  legend {
+    font-size: 13px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+  }
+
+  .form-group input {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .pay-btn,
+  .cancel-btn {
+    padding: 10px 14px;
+    font-size: 12px;
   }
 }

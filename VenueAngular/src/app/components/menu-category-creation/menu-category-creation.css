@@ -63,3 +63,45 @@
 .back-btn:hover {
   background-color: #000;
 }
+
+/* RESPONSIVE - Tablet */
+@media (max-width: 768px) {
+  .menu-category-container {
+    padding: 20px;
+    margin: 1rem;
+    max-width: 95%;
+  }
+
+  .menu-category-form input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .menu-category-form button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* RESPONSIVE - Telefoni verticali */
+@media (max-width: 480px) {
+  .menu-category-container {
+    padding: 16px;
+    margin: 0.5rem;
+    max-width: 100%;
+  }
+
+  .menu-category-form {
+    gap: 14px;
+  }
+
+  .menu-category-form input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .menu-category-form button {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

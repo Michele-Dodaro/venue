@@ -17,15 +17,54 @@ h2 {
   padding: 15px;
   margin-bottom: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 .event-card.inactive-event {
   border-left-color: #ff0000;
 }
 
+.event-image {
+  width: 100%;
+  height: 250px;
+  margin: -15px -15px 15px -15px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.event-image-placeholder {
+  width: 100%;
+  height: 250px;
+  margin: -15px -15px 15px -15px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.event-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .event-card h3 {
-  margin: 0 0 10px 0;
+  margin: 0;
   color: #000;
+  font-size: 1.2em;
 }
 
 .description {
@@ -43,4 +82,285 @@ h2 {
 a {
   text-decoration: none;
   color: #555;
+}
+
+.info-fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 999;
+}
+
+.info-fab:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+.info-fab img {
+  width: 35px;
+  height: 35px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5em;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.info-item {
+  margin-bottom: 15px;
+}
+
+.info-item strong {
+  display: block;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.info-item p {
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+}
+
+.close-modal-btn {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  background-color: #555;
+}
+
+/* RESPONSIVE - Tablet e telefoni */
+@media (max-width: 768px) {
+  .info-fab {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .info-fab img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-height: 70vh;
+  }
+
+  .modal-header h2 {
+    font-size: 1.3em;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .modal-footer {
+    padding: 12px 15px;
+  }
+
+  .event-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .event-image,
+  .event-image-placeholder {
+    height: 180px;
+    margin: -12px -12px 12px -12px;
+  }
+
+  .event-card h3 {
+    font-size: 1.1em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    margin-top: 15px;
+  }
+}
+
+/* RESPONSIVE - Telefoni verticali (max-width 480px) */
+@media (max-width: 480px) {
+  .info-fab {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .info-fab img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .modal-content {
+    width: 98%;
+    max-height: 60vh;
+  }
+
+  .modal-header {
+    padding: 15px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.1em;
+  }
+
+  .close-btn {
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .info-item {
+    margin-bottom: 12px;
+  }
+
+  .info-item strong {
+    font-size: 0.95em;
+  }
+
+  .info-item p {
+    font-size: 0.9em;
+  }
+
+  .modal-footer {
+    padding: 10px 12px;
+  }
+
+  .close-modal-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .event-list {
+    padding: 10px;
+  }
+
+  .event-card {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #ffcc00;
+  }
+
+  .event-image,
+  .event-image-placeholder {
+    height: 150px;
+    margin: -10px -10px 10px -10px;
+  }
+
+  .event-image-placeholder {
+    font-size: 0.9em;
+  }
+
+  .event-card h3 {
+    font-size: 1em;
+  }
+
+  .event-info {
+    gap: 6px;
+  }
+
+  .description {
+    font-size: 0.9em;
+  }
+
+  h2 {
+    font-size: 1.3em;
+    margin-top: 12px;
+  }
+
+  .no-data {
+    padding: 15px;
+    font-size: 0.9em;
+  }
 }

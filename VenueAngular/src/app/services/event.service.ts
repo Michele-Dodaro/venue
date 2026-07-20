@@ -26,7 +26,7 @@ export class EventService {
   }
 
   updateEvent(id: number, event: EventDTORequest): Observable<EventDTOResponse> {
-    return this.http.put<EventDTOResponse>(`${this.apiUrl}/${id}`, event);
+    return this.http.put<EventDTOResponse>(`${this.apiUrl}/modifica/${id}`, event);
   }
 
   deleteEvent(id: number): Observable<void> {

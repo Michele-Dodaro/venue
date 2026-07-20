@@ -37,8 +37,11 @@
               }
               @if (isLoggedIn) {
                 <div class="item-actions">
-                <button type="button" class="delete-btn" (click)="deleteItem(entry.category.type, item.id)">Elimina</button>                
-            </div>
+                  <a [routerLink]="['/categories', entry.category.type, 'items', item.id, 'edit']" class="edit-link">
+                    <button type="button" class="edit-btn">Modifica</button>
+                  </a>
+                  <button type="button" class="delete-btn" (click)="deleteItem(entry.category.type, item.id)">Elimina</button>                
+                </div>
               }
             </li>
           } @empty {

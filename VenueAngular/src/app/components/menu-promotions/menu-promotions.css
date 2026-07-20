@@ -245,15 +245,149 @@
 }
 
 @media (max-width: 768px) {
+  .promotions-container {
+    padding: 16px;
+  }
+
+  .promotions-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .category-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+
+  .items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .item-card {
+    padding: 16px;
+  }
+
+  .item-header h4 {
+    font-size: 1em;
+  }
+
+  .promotion-price {
+    font-size: 1.1em;
+  }
+
+  .expand-btn {
+    padding: 8px;
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  .promotions-container {
+    padding: 12px;
+  }
+
+  .promotions-container h2 {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+  }
+
+  .message {
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+  }
+
+  .loading {
+    font-size: 1em;
+    padding: 30px 15px;
+  }
+
+  .category-section {
+    margin-bottom: 25px;
+  }
+
+  .category-section h3 {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+
   .items-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  
+
+  .item-card {
+    padding: 14px;
+    border-left-width: 4px;
+  }
+
   .item-header {
-    flex-direction: column;
+    margin-bottom: 8px;
+    gap: 8px;
   }
-  
+
+  .item-header h4 {
+    font-size: 0.95em;
+  }
+
   .original-price {
-    align-self: flex-start;
+    font-size: 0.85em;
+    padding: 3px 6px;
+  }
+
+  .item-desc {
+    font-size: 0.85em;
+    margin: 8px 0;
+  }
+
+  .promotion-badge {
+    padding: 10px;
+    margin: 12px 0;
+  }
+
+  .promotion-label {
+    font-size: 0.8em;
+  }
+
+  .promotion-price {
+    font-size: 1.1em;
+  }
+
+  .discount-badge {
+    font-size: 0.8em;
+  }
+
+  .expand-btn {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .promotion-form {
+    padding: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 0.85em;
+  }
+
+  .form-group input {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .submit-btn {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .no-items,
+  .no-categories {
+    padding: 25px 15px;
+    font-size: 0.9em;
   }
 }

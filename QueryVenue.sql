@@ -30,6 +30,7 @@ CREATE TABLE event_layout (
 
 CREATE TABLE event (
     id SERIAL PRIMARY KEY,
+    image TEXT NOT NULL,
     name VARCHAR(100) NOT NULL,
     genre VARCHAR(100),
     description TEXT,
@@ -94,38 +95,57 @@ CREATE TABLE ticket (
     layout_id INTEGER REFERENCES event_layout(id) ON DELETE SET NULL,
     avaliable BOOLEAN NOT NULL
 );
-
-
-INSERT INTO menu_categories (type) VALUES
-    ('Appetizers'),
-    ('Main Courses'),
-    ('Desserts'),
-    ('Beverages');
-
 INSERT INTO users (email, password) VALUES ('michele@prova.com','$2a$10$.qgWYq/4aIufTyk69iUdBOtGIN1p6j/pplEAkXV2.405quxNCusBa');
 
 
-INSERT INTO menu_items (plate, description, original_price, menu_categories_id) VALUES
-    ('Bruschetta', 'Toasted bread with tomatoes, garlic, and basil', 6.50, 1),
-    ('Fried Calamari', 'Crispy fried squid rings with marinara sauce', 12.00, 1),
-    ('Spaghetti Carbonara', 'Pasta with eggs, pecorino cheese, guanciale, and black pepper', 14.50, 2),
-    ('Grilled Ribeye Steak', '12oz ribeye served with roasted potatoes', 28.00, 2),
-    ('Tiramisu', 'Classic Italian coffee-flavored dessert', 7.00, 3),
-    ('Panna Cotta', 'Sweetened cream thickened with gelatin', 6.50, 3),
-    ('Espresso', 'Single shot of Italian coffee', 2.50, 4),
-    ('Sparkling Water', 'Bottle of sparkling mineral water', 3.00, 4);
-
+-- MODIFICA: added event layouts with Italian names
 INSERT INTO event_layout (conformation, row, number, price1, price2, price3) VALUES
-('prova', '3', 4, 19.90, 16.90, 14.90);
+('Parterre', 6, 7, 15.00, 12.00, 10.00),
+('Balconata VIP', 5, 5, 40.00, 35.00, 30.00),
+('Tavolo Standard', 10, 10, 20.00, 15.00, 10.00);
 
-INSERT INTO event (name, genre, description, date, active, layout_id) VALUES
-('Iron Maiden Tribute Night', 'Heavy Metal', 'Una serata dedicata ai giganti della NWOBHM.', '2026-08-15 21:00:00', true, 1),
-('Grunge Revival Session', 'Rock/Grunge', 'Tutti i successi degli anni 90 che hanno fatto la storia.', '2026-08-22 22:00:00', true, NULL),
-('Thrash Attack', 'Thrash Metal', 'Tre band locali che spingono al limite del BPM.', '2026-09-02 20:30:00', true, NULL),
-('Alternative Rock Unplugged', 'Rock', 'Una veste acustica per i classici dell alt-rock moderno.', '2026-09-10 19:30:00', true, NULL),
-('Night of Doom', 'Doom Metal', 'Atmosfere cupe e ritmi lenti per i veri appassionati.', '2026-09-18 21:30:00', true, NULL);
+-- MODIFICA: created upcoming events with real image URLs and Italian descriptions
+INSERT INTO event (image, name, genre, description, date, active, layout_id) VALUES
+('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'Tributo Iron Maiden', 'Heavy Metal', 'La serata tributo definitiva agli Iron Maiden.', '2026-08-15 22:00:00', TRUE, 1),
+('https://images.unsplash.com/photo-1546708770-589dab7b22c7?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'Festival Sangue e Budella', 'Death Metal', 'Gruppi death metal locali che ti sciolgono la faccia.', '2026-08-22 21:00:00', TRUE, 1),
+('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7', 'Sessione Acustica Doom', 'Doom Metal', 'Lento, pesante e acustico.', '2026-09-05 20:30:00', TRUE, 3);
 
-SELECT * from menu_items;
+-- MODIFICA: registered some sample reservations
+INSERT INTO reservations (event_id, customer_name, customer_email, customer_phone, number_of_participants, total_amount, payment_status, reservation_status) VALUES
+(1, 'Bruce Dickinson', 'bruce@example.com', '555-666-01', 4, 60.00, 'PAGATO', 'CONFERMATO'),
+(2, 'Chuck Schuldiner', 'chuck@example.com', '555-666-02', 2, 30.00, 'IN ATTESA', 'IN ATTESA');
 
-SELECT * FROM menu_items m WHERE  m.menu_categories_id = 1
-select * from public.event_layout
+-- MODIFICA: linked reservations to layouts
+INSERT INTO reservation_items (reservation_id, event_layout_id) VALUES
+(1, 1),
+(2, 1);
+
+-- MODIFICA: added menu categories in Italian
+INSERT INTO menu_categories (type) VALUES
+('Birra alla Spina'),
+('Hamburger'),
+('Cocktail e Cicchetti');
+
+-- MODIFICA: added themed menu items with Italian descriptions
+INSERT INTO menu_items (plate, description, original_price, menu_categories_id) VALUES
+('La Birra del Soldato', 'Ale inglese amara premium alla spina.', 6.50, 1),
+('Hamburger del Burattinaio', 'Doppio manzo, pancetta, cheddar, jalapenos.', 14.00, 2),
+('Sabato di Sangue', 'Vodka, succo di pomodoro, salsa estremamente piccante.', 8.00, 3),
+('Pale Ale Pantera', 'IPA forte per svegliarti.', 7.00, 1);
+
+-- MODIFICA: created special promotions
+INSERT INTO promotion (promotion_table, promotion_price, expires_in) VALUES
+(1.00, 7.00, '2026-12-31 23:59:59'),
+(2.00, 8.00, '2026-10-31 23:59:59');
+
+-- MODIFICA: linked promotions to menu items and layouts
+INSERT INTO promotion_items (promotion_id, menu_items_id, event_layout_id) VALUES
+(1, 2, 3),
+(2, 1, 1);
+
+-- MODIFICA: populated ticket availability
+INSERT INTO ticket (row_field, column_field, layout_id, avaliable) VALUES
+('A', 1, 2, TRUE),
+('A', 2, 2, FALSE),
+('B', 1, 3, TRUE),
+('B', 2, 3, TRUE);

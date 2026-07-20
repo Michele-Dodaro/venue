@@ -14,5 +14,6 @@ export interface MenuItemDTOResponse {
 }
 
 export interface MenuCategoryDTO {
+  id?: number;
   type: string;
 }

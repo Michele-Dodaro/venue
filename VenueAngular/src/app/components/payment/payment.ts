@@ -51,11 +51,6 @@ export class Payment implements OnInit {
   }
 
   processPayment(): void {
-    if (!this.canProcess()) {
-      this.errorMessage.set('Pagamento non disponibile. Riprova.');
-      return;
-    }
-
     // Validate form
     if (!this.cardNumber() || !this.expiryDate() || !this.cvv() || !this.cardholderName()) {
       this.errorMessage.set('Completa tutti i dati della carta di credito.');

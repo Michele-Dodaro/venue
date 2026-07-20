@@ -97,3 +97,102 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* RESPONSIVE - Tablet */
+@media (max-width: 768px) {
+  .users-page {
+    padding: 15px;
+  }
+
+  .user-create-card,
+  .user-list-card {
+    padding: 16px;
+  }
+
+  .user-create-card h2,
+  .user-list-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+
+  .user-form input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .user-form button {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .user-row {
+    padding: 10px 12px;
+  }
+
+  .delete-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* RESPONSIVE - Telefoni verticali */
+@media (max-width: 480px) {
+  .users-page {
+    padding: 10px;
+  }
+
+  .users-grid {
+    gap: 15px;
+  }
+
+  .user-create-card,
+  .user-list-card {
+    padding: 14px;
+  }
+
+  .user-create-card h2,
+  .user-list-card h2 {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+
+  .user-form {
+    gap: 10px;
+  }
+
+  .user-form label {
+    gap: 4px;
+  }
+
+  .user-form input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .user-form button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .empty-state,
+  .error-state {
+    padding: 12px;
+    font-size: 0.9em;
+  }
+
+  .users-list {
+    gap: 8px;
+  }
+
+  .user-row {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .delete-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}

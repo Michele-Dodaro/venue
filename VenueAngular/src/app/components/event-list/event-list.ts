@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router'; 
 import { EventService } from '../../services/event.service'; 
@@ -18,6 +18,10 @@ import { AddButtonComponent } from '../add-button/add-button';
 export class EventListComponent implements OnInit {
   events: EventDTOResponse[] = [];
   private authService = inject(AuthService);
+  
+  readonly isModalOpen = signal(false);
+  readonly venueLocation = 'Via Roma 123, Milano';
+  readonly venueContacts = 'Email: info@venue.it | Tel: +39 02 1234 5678';
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -26,6 +30,15 @@ export class EventListComponent implements OnInit {
     this.authService.logout();
     window.location.reload();
   }
+
+  openModal(): void {
+    this.isModalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.isModalOpen.set(false);
+  }
+
   constructor(
     private eventService: EventService,
     private cdr: ChangeDetectorRef 

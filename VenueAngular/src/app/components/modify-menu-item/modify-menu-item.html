@@ -1,0 +1,68 @@
+<div class="container">
+  <h2>Modifica Piatto</h2>
+
+  @if (isLoading) {
+    <div class="loading">Caricamento...</div>
+  } @else {
+    <div class="form-card">
+      <form [formGroup]="menuItemForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="plate" [attr.aria-label]="'Nome Piatto'">
+            Nome Piatto:
+          </label>
+          <input
+            id="plate"
+            formControlName="plate"
+            type="text"
+            placeholder="Es: Spaghetti alla Carbonara"
+          />
+        </div>
+
+        <div>
+          <label for="type" [attr.aria-label]="'Categoria'">
+            Categoria:
+          </label>
+          <select id="type" formControlName="type">
+            <option [ngValue]="null" disabled>Seleziona una categoria</option>
+            @for (cat of categories; track cat.type) {
+              <option [ngValue]="cat.type">{{ cat.type }}</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label for="description" [attr.aria-label]="'Descrizione'">
+            Descrizione:
+          </label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Descrizione del piatto"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="originalPrice" [attr.aria-label]="'Prezzo'">
+            Prezzo:
+          </label>
+          <input
+            id="originalPrice"
+            formControlName="originalPrice"
+            type="number"
+            step="0.01"
+            min="0"
+          />
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="back-btn" (click)="onCancel()">
+            Annulla
+          </button>
+          <button type="submit" [disabled]="menuItemForm.invalid || isLoading">
+            {{ isLoading ? 'Aggiornamento...' : 'Aggiorna' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

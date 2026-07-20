@@ -40,7 +40,7 @@
       <div class="price-item price-3">
         <span class="color-box"></span>
         <span class="label">Fascia 3</span>
-        <span class="price">€ {{ layout()?.price3 }}</span>
+        <span class="price">€ {{ layout()?.price3 ?? 'N/A' }}</span>
       </div>
     </div>
 
@@ -56,9 +56,11 @@
                 class="seat-square"
                 [ngClass]="{
                   'selected': seat.status === 'selected',
-                  'booked': seat.status === 'occupied'
+                  'booked': seat.status === 'occupied',
+                  'price-1': getPriceClass(seat) === 'price-1' && seat.status !== 'occupied',
+                  'price-2': getPriceClass(seat) === 'price-2' && seat.status !== 'occupied',
+                  'price-3': getPriceClass(seat) === 'price-3' && seat.status !== 'occupied'
                 }"
-                [class]="getPriceClass(seat)"
                 [disabled]="seat.status === 'occupied'"
                 [attr.aria-pressed]="seat.status === 'selected'"
                 [attr.aria-label]="'Fila ' + seat.row + ', posto ' + seat.column + ', ' + seatLabel(seat) + ', € ' + seat.price"
@@ -74,7 +76,7 @@
 
     <div class="selected-info">
       @if (selectedSeat(); as seat) {
-        <p>Fila <strong>{{ seat.row }}</strong> - Posto <strong>{{ seat.column }}</strong> - Prezzo: <strong>€ {{ seat.price }}</strong></p>
+        <p>Fila <strong>{{ seat.row }}</strong> - Posto <strong>{{ seat.column }}</strong> - Prezzo: <strong>€ {{ seat.price ?? 'N/A' }}</strong></p>
       }
     </div>
 

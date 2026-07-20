@@ -18,6 +18,22 @@
         }
       </select>
     
+      <div class="image-upload">
+        <label for="imageInput">Carica Immagine Evento</label>
+        <input 
+          type="file" 
+          id="imageInput"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+          required
+        >
+        @if (imagePreview) {
+          <div class="image-preview">
+            <img [src]="imagePreview" alt="Anteprima evento">
+          </div>
+        }
+      </div>
+    
       <label class="checkbox-container">
         <input type="checkbox" formControlName="active">
         Evento Attivo

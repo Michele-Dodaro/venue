@@ -7,10 +7,21 @@
       @if (event.active  || isLoggedIn()) {
         <li class="event-card" [class.inactive-event]="!event.active">
           <a [routerLink]="['/events', event.id]" style="display: block; text-decoration: none; color: inherit;">
-            <h3>{{ event.name }}</h3>
-            <p class="description">{{ event.description }}</p>
-            <p class="description"><strong>Genere:</strong> {{ event.genre }}</p>
-            <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
+            @if (event.image && event.image.trim() !== '') {
+              <div class="event-image">
+                <img [src]="event.image" [alt]="event.name">
+              </div>
+            } @else {
+              <div class="event-image-placeholder">
+                <span>Nessuna immagine</span>
+              </div>
+            }
+            <div class="event-info">
+              <h3>{{ event.name }}</h3>
+              <p class="description">{{ event.description }}</p>
+              <p class="description"><strong>Genere:</strong> {{ event.genre }}</p>
+              <small>Data: {{ event.date | date:'dd/MM/yyyy HH:mm' }}</small>
+            </div>
           </a>
         </li>
       }
@@ -18,4 +29,32 @@
       <li class="no-data" style="list-style: none;">Nessun evento trovato nel database.</li>
     }
   </ul>
+
+  <button class="info-fab" (click)="openModal()" type="button" title="Informazioni">
+    <img src="./question.png" alt="Informazioni">
+  </button>
+
+  @if (isModalOpen()) {
+    <div class="modal-overlay" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Informazioni</h2>
+          <button class="close-btn" (click)="closeModal()" type="button">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="info-item">
+            <strong>Location:</strong>
+            <p>{{ venueLocation }}</p>
+          </div>
+          <div class="info-item">
+            <strong>Contatti:</strong>
+            <p>{{ venueContacts }}</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="close-modal-btn" (click)="closeModal()" type="button">Chiudi</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

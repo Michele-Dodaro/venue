@@ -26,4 +26,31 @@
     </div>
 
   </form>
+
+  <div class="items-section">
+    <h3>Piatti in questa categoria</h3>
+    
+    @if (loadingItems) {
+      <p class="loading">Caricamento piatti...</p>
+    } @else if (menuItems.length === 0) {
+      <p class="no-items">Nessun piatto in questa categoria</p>
+    } @else {
+      <ul class="items-list">
+        @for (item of menuItems; track item.id) {
+          <li class="item-card">
+            <div class="item-info">
+              <h4>{{ item.name }}</h4>
+              <p class="item-price">{{ item.originalPrice | currency:'EUR':'symbol':'1.2-2' }}</p>
+            </div>
+            <div class="item-buttons">
+              <a [routerLink]="['/categories', oldName, 'items', item.id, 'edit']" class="edit-link">
+                <button type="button" class="edit-btn">Modifica</button>
+              </a>
+              <button type="button" class="delete-btn" (click)="deleteItem(item.id)">Elimina</button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </div>
 </div>

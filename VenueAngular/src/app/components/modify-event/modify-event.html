@@ -1,0 +1,78 @@
+<div class="container">
+  <h2>Modifica Evento</h2>
+
+  @if (isLoading) {
+    <div class="loading">Caricamento...</div>
+  } @else {
+    <div class="form-card">
+      <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Nome Evento"
+          [attr.aria-label]="'Nome Evento'"
+        />
+
+        <input
+          type="text"
+          formControlName="description"
+          placeholder="Descrizione"
+          [attr.aria-label]="'Descrizione Evento'"
+        />
+
+        <input
+          type="text"
+          formControlName="genre"
+          placeholder="Genere Musicale"
+          [attr.aria-label]="'Genere Musicale'"
+        />
+
+        <input
+          type="datetime-local"
+          formControlName="date"
+          [attr.aria-label]="'Data e Ora Evento'"
+        />
+
+        <select
+          formControlName="layoutId"
+          [attr.aria-label]="'Seleziona Layout'"
+        >
+          <option [ngValue]="null" disabled>Seleziona un layout</option>
+          @for (layout of layouts; track layout.id) {
+            <option [ngValue]="layout.id">{{ layout.conformation }}</option>
+          }
+        </select>
+
+        <div class="image-upload">
+          <label for="imageInput">Carica Nuova Immagine Evento</label>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            (change)="onImageSelected($event)"
+            [attr.aria-label]="'Carica immagine evento'"
+          />
+          @if (imagePreview) {
+            <div class="image-preview">
+              <img [src]="imagePreview" alt="Anteprima evento" />
+            </div>
+          }
+        </div>
+
+        <label class="checkbox-container">
+          <input type="checkbox" formControlName="active" />
+          Evento Attivo
+        </label>
+
+        <div class="button-group">
+          <button type="button" class="back-btn" (click)="onCancel()">
+            Annulla
+          </button>
+          <button type="submit" [disabled]="eventForm.invalid || isLoading">
+            {{ isLoading ? 'Aggiornamento...' : 'Aggiorna' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

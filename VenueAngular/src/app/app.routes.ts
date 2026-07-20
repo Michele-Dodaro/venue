@@ -3,12 +3,14 @@ import { EventListComponent } from './components/event-list/event-list';
 import { LoginComponent } from './components/login/login';
 import { EventDetailComponent } from './components/event-detail/event-detail';
 import { CreateEventComponent } from './components/event-creation/event-creation';
+import { ModifyEventComponent } from './components/modify-event/modify-event';
 import { AddButtonComponent } from './components/add-button/add-button';
 import { CreateMenuCategoryComponent } from './components/menu-category-creation/menu-category-creation';
 import { MenuCategoryListComponent } from './components/menu-category-list/menu-category-list';
 import { UsersListComponent } from './components/users-list/users-list';
 import { UpdateMenuCategory } from './components/update-menu-category/update-menu-category';
 import { CreateMenuItems } from './components/create-menu-items/create-menu-items';
+import { ModifyMenuItemComponent } from './components/modify-menu-item/modify-menu-item';
 import { CreateLayout} from './components/create-layout/create-layout';
 import { SelectSeat } from './components/select-seat/select-seat';
 import { Payment } from './components/payment/payment';
@@ -35,6 +37,11 @@ export const routes: Routes = [
         path: 'events/:id',
         component: EventDetailComponent,
         title: 'Dettaglio Evento'
+    },
+    {
+        path: 'events/:id/edit',
+        component: ModifyEventComponent,
+        title: 'Modifica Evento'
     },
     {
         path: 'login',
@@ -76,6 +83,11 @@ export const routes: Routes = [
         path: 'categories/:categories/items',
         component: CreateMenuItems,
         title: 'Crea Elemento Menu'
+    },
+    {
+        path: 'categories/:categoryName/items/:itemId/edit',
+        component: ModifyMenuItemComponent,
+        title: 'Modifica Piatto'
     },
     {
         path:'event-layout',

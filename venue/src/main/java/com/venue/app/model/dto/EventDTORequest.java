@@ -1,14 +1,18 @@
 package com.venue.app.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.venue.app.config.LocalDateTimeDeserializer;
 
 import java.time.LocalDateTime;
 
 public class EventDTORequest {
 
+    private String image;
     private String name;
     private String description;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime date;
     private Boolean active;
     private String genre;
@@ -16,13 +20,22 @@ public class EventDTORequest {
 
     public EventDTORequest() {}
 
-    public EventDTORequest(String name, String description, LocalDateTime date, String genre, Boolean active, Long layoutId) {
+    public EventDTORequest(String image, String name, String description, LocalDateTime date, String genre, Boolean active, Long layoutId) {
+        this.image = image;
         this.name = name;
         this.description = description;
         this.date = date;
         this.genre = genre;
         this.active = active;
         this.layoutId = layoutId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {

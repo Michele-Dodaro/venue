@@ -50,3 +50,54 @@ nav {
 .logo-link img:hover {
   transform: scale(1.05);
 }
+
+/* RESPONSIVE - Tablet */
+@media (max-width: 768px) {
+  nav {
+    padding: 8px 15px;
+  }
+
+  .logo {
+    height: 60px;
+  }
+
+  .nav-link {
+    margin-left: 15px;
+    font-size: 0.9em;
+  }
+
+  .nav-action {
+    margin-left: 15px;
+  }
+
+  .nav-action img {
+    height: 35px;
+  }
+}
+
+/* RESPONSIVE - Telefoni verticali */
+@media (max-width: 480px) {
+  nav {
+    padding: 6px 12px;
+    flex-wrap: wrap;
+    border-bottom-width: 2px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .nav-link {
+    margin-left: 10px;
+    font-size: 0.75em;
+    padding: 5px;
+  }
+
+  .nav-action {
+    margin-left: 10px;
+  }
+
+  .nav-action img {
+    height: 30px;
+  }
+}
