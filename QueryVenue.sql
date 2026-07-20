@@ -120,19 +120,32 @@ INSERT INTO reservation_items (reservation_id, event_layout_id) VALUES
 (1, 1),
 (2, 1);
 
--- MODIFICA: added menu categories in Italian
 INSERT INTO menu_categories (type) VALUES
 ('Birra alla Spina'),
 ('Hamburger'),
 ('Cocktail e Cicchetti');
 
--- MODIFICA: added themed menu items with Italian descriptions
+-- MODIFICA: added 5 new items per category
 INSERT INTO menu_items (plate, description, original_price, menu_categories_id) VALUES
 ('La Birra del Soldato', 'Ale inglese amara premium alla spina.', 6.50, 1),
 ('Hamburger del Burattinaio', 'Doppio manzo, pancetta, cheddar, jalapenos.', 14.00, 2),
 ('Sabato di Sangue', 'Vodka, succo di pomodoro, salsa estremamente piccante.', 8.00, 3),
-('Pale Ale Pantera', 'IPA forte per svegliarti.', 7.00, 1);
-
+('Pale Ale Pantera', 'IPA forte per svegliarti.', 7.00, 1),
+('Lager Oscura', 'Lager scura con note di caffe e cioccolato.', 6.00, 1),
+('Pilsner Cristallina', 'Pilsner bionda, leggera e rinfrescante.', 5.50, 1),
+('Stout Imperiale', 'Birra scura corposa ad alta gradazione.', 7.50, 1),
+('Weizen del Monaco', 'Birra di grano con aromi di banana e chiodi di garofano.', 6.00, 1),
+('Red Ale Fiammante', 'Birra ambrata con retrogusto caramellato.', 6.50, 1),
+('Il Classico', 'Manzo, lattuga, pomodoro, cipolla rossa e maionese.', 10.00, 2),
+('Cheeseburger Supremo', 'Manzo, triplo formaggio fuso, cetriolini e senape.', 12.00, 2),
+('Pollo Croccante', 'Petto di pollo fritto, insalata di cavolo e salsa allo yogurt.', 11.50, 2),
+('Vegano del Bosco', 'Burger di funghi e lenticchie, spinaci e maionese veg.', 13.00, 2),
+('Il Montanaro', 'Manzo, formaggio fuso, funghi porcini e speck croccante.', 15.00, 2),
+('Negroni Sbagliato', 'Campari, Vermouth rosso, Prosecco.', 7.00, 3),
+('Spritz Veneziano', 'Aperol, Prosecco, soda e fetta di arancia.', 6.00, 3),
+('Moscow Mule Freddo', 'Vodka, ginger beer, succo di lime fresco.', 8.50, 3),
+('Cicchetto Rustico', 'Crostino artigianale con baccala mantecato.', 3.50, 3),
+('Tagliere Mini', 'Selezione di salumi e formaggi in formato cicchetto.', 6.00, 3);
 -- MODIFICA: created special promotions
 INSERT INTO promotion (promotion_table, promotion_price, expires_in) VALUES
 (1.00, 7.00, '2026-12-31 23:59:59'),
@@ -143,9 +156,3 @@ INSERT INTO promotion_items (promotion_id, menu_items_id, event_layout_id) VALUE
 (1, 2, 3),
 (2, 1, 1);
 
--- MODIFICA: populated ticket availability
-INSERT INTO ticket (row_field, column_field, layout_id, avaliable) VALUES
-('A', 1, 2, TRUE),
-('A', 2, 2, FALSE),
-('B', 1, 3, TRUE),
-('B', 2, 3, TRUE);
