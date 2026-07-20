@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -104,6 +105,17 @@ public class PromotionService {
 
             eventLayoutRepository.save(layout);
 
+            return true;
+        }
+
+        return false;
+    }
+    @Transactional
+    public boolean deletePromotionByMenuItemId(Long menuItemId) {
+        List<PromotionItems> promoItems = promotionItemsRepository.findByMenuItemId(menuItemId);
+
+        if (!promoItems.isEmpty()) {
+            promotionItemsRepository.deleteAll(promoItems);
             return true;
         }
 

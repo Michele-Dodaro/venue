@@ -45,5 +45,14 @@ public class PromotionController {
 
         return ResponseEntity.badRequest().body("Failed to apply promotion. Promotion or Event Layout not found.");
     }
+    @DeleteMapping("/item/{menuItemId}")
+    public ResponseEntity<String> removePromotionFromItem(@PathVariable Long menuItemId) {
+        boolean success = promotionService.deletePromotionByMenuItemId(menuItemId);
 
+        if (success) {
+            return ResponseEntity.ok("Promotion removed successfully.");
+        }
+
+        return ResponseEntity.badRequest().body("Failed to remove promotion. Item not found or no active promotion.");
+    }
 }

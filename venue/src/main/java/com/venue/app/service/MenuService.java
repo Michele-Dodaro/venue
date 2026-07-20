@@ -7,6 +7,7 @@ import com.venue.app.model.dto.MenuItemDTOResponse;
 import com.venue.app.model.entity.MenuCategories;
 import com.venue.app.model.entity.MenuItems;
 import com.venue.app.model.entity.Promotion;
+import com.venue.app.model.entity.PromotionItems;
 import com.venue.app.repository.MenuRepository;
 import com.venue.app.repository.MenuItemRepository;
 import com.venue.app.repository.PromotionItemsRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +34,16 @@ public class MenuService {
         this.promotionItemsRepository = promotionItemsRepository;
     }
 
+    private Promotion findActivePromotion(Long menuItemId) {
+        List<PromotionItems> promoItems = promotionItemsRepository.findByMenuItemId(menuItemId);
+
+        return promoItems.stream()
+                .map(PromotionItems::getPromotion)
+                .filter(p -> p.getExpiresIn() == null || p.getExpiresIn().isAfter(OffsetDateTime.now()))
+                .max(Comparator.comparing(Promotion::getId))
+                .orElse(null);
+    }
+
     public List<MenuCategoryDTOResponse> getMenu() {
         List<MenuCategories> categories = menuRepository.findAll();
 
@@ -41,10 +54,8 @@ public class MenuService {
             List<MenuItemDTOResponse> items = menuItemRepository.findByMenuCategoryType(cat.getType())
                     .stream()
                     .map(item -> {
-                        // Search for the active promotion for this menu item using LEFT JOIN via PromotionItems
-                        Promotion promotion = promotionItemsRepository.findActivePromotionByMenuItemId(item.getId());
+                        Promotion promotion = findActivePromotion(item.getId());
 
-                        // Create the DTO with the promotion price if it exists
                         return new MenuItemDTOResponse(
                                 item.getId(),
                                 item.getPlate(),
@@ -154,10 +165,8 @@ public class MenuService {
 
         return items.stream()
                 .map(item -> {
-                    // Search for the active promotion for this menu item using LEFT JOIN via PromotionItems
-                    Promotion promotion = promotionItemsRepository.findActivePromotionByMenuItemId(item.getId());
+                    Promotion promotion = findActivePromotion(item.getId());
 
-                    // Create the DTO with the promotion price if it exists
                     return new MenuItemDTOResponse(
                             item.getId(),
                             item.getPlate(),

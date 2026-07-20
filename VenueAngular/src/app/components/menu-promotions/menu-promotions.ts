@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
     standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: './menu-promotions.html',
-    styleUrl: './menu-promotions.css'
+    styleUrls: ['./menu-promotions.css']
 })
 export class MenuPromotionsComponent implements OnInit {
     categories: { category: MenuCategoryDTO; items: MenuItemDTOResponse[] }[] = [];
@@ -38,6 +38,25 @@ export class MenuPromotionsComponent implements OnInit {
     ngOnInit(): void {
         this.loadMenuItems();
     }
+    removePromotion(item: MenuItemDTOResponse): void {
+    if (!confirm('Sei sicuro di voler eliminare questa offerta?')) {
+        return;
+    }
+
+    this.promotionService.deletePromotionByItemId(item.id).subscribe({
+        next: () => {
+            this.successMessage = `Offerta rimossa per ${item.name}`;
+            item.promotionPrice = undefined;
+            this.cdr.markForCheck();
+            setTimeout(() => this.successMessage = null, 3000);
+        },
+        error: (err) => {
+            console.error('Error deleting promotion:', err);
+            this.errorMessage = 'Errore durante l\'eliminazione dell\'offerta';
+            this.cdr.markForCheck();
+        }
+    });
+}
 
     loadMenuItems(): void {
         this.loading = true;
@@ -96,7 +115,6 @@ export class MenuPromotionsComponent implements OnInit {
             return;
         }
 
-        // Converti la data (formato YYYY-MM-DD) a ISO string
         const dateString = formData.expiresIn + 'T23:59:59.000Z';
 
         const promotionRequest: PromotionDTORequest = {
@@ -145,4 +163,5 @@ export class MenuPromotionsComponent implements OnInit {
         this.errorMessage = null;
         this.successMessage = null;
     }
+    
 }

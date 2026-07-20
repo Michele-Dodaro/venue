@@ -233,6 +233,26 @@
   transform: translateY(-2px);
 }
 
+/* MODIFICA: Aggiunto stile per il bottone di eliminazione promozione */
+.delete-promotion-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.2s;
+  margin-bottom: 10px;
+}
+
+.delete-promotion-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
 .no-items,
 .no-categories {
   grid-column: 1 / -1;
@@ -277,6 +297,11 @@
   }
 
   .expand-btn {
+    padding: 8px;
+    font-size: 0.95em;
+  }
+
+  .delete-promotion-btn {
     padding: 8px;
     font-size: 0.95em;
   }
@@ -381,6 +406,11 @@
   }
 
   .submit-btn {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .delete-promotion-btn {
     padding: 8px;
     font-size: 0.9em;
   }

@@ -23,4 +23,7 @@ export class PromotionService {
   applyPromotionToLayout(promotionId: number, layoutId: number): Observable<string> {
     return this.http.post(`${this.apiUrl}/${promotionId}/apply-to-layout/${layoutId}`, {}, { responseType: 'text' });
   }
+  deletePromotionByItemId(itemId: number): Observable<string> {
+    return this.http.delete(`/api/promotions/item/${itemId}`, { responseType: 'text' });
+  }
 }
