@@ -24,7 +24,25 @@
       </div>
     }
 
-    <div class="screen" aria-hidden="true">SCREEN</div>
+    <div class="screen" aria-hidden="true">PALCO</div>
+
+    <div class="price-legend">
+      <div class="price-item price-1">
+        <span class="color-box"></span>
+        <span class="label">Fascia 1</span>
+        <span class="price">€ {{ layout()?.price1 }}</span>
+      </div>
+      <div class="price-item price-2">
+        <span class="color-box"></span>
+        <span class="label">Fascia 2</span>
+        <span class="price">€ {{ layout()?.price2 }}</span>
+      </div>
+      <div class="price-item price-3">
+        <span class="color-box"></span>
+        <span class="label">Fascia 3</span>
+        <span class="price">€ {{ layout()?.price3 }}</span>
+      </div>
+    </div>
 
     <div class="seating-area">
       @for (row of seatsGrid(); track $index) {
@@ -36,17 +54,27 @@
               <button
                 type="button"
                 class="seat-square"
-                [class.selected]="seat.status === 'selected'"
-                [class.booked]="seat.status === 'occupied'"
+                [ngClass]="{
+                  'selected': seat.status === 'selected',
+                  'booked': seat.status === 'occupied'
+                }"
+                [class]="getPriceClass(seat)"
                 [disabled]="seat.status === 'occupied'"
                 [attr.aria-pressed]="seat.status === 'selected'"
-                [attr.aria-label]="'Fila ' + seat.row + ', posto ' + seat.column + ', ' + seatLabel(seat)"
-                (click)="selectSeat(seat)">
+                [attr.aria-label]="'Fila ' + seat.row + ', posto ' + seat.column + ', ' + seatLabel(seat) + ', € ' + seat.price"
+                (click)="selectSeat(seat)"
+                [title]="'€ ' + seat.price">
                 {{ seat.column }}
               </button>
             }
           </div>
         </div>
+      }
+    </div>
+
+    <div class="selected-info">
+      @if (selectedSeat(); as seat) {
+        <p>Fila <strong>{{ seat.row }}</strong> - Posto <strong>{{ seat.column }}</strong> - Prezzo: <strong>€ {{ seat.price }}</strong></p>
       }
     </div>
 

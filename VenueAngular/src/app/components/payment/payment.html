@@ -1,0 +1,144 @@
+<div class="payment-container">
+  @if (pendingPayment(); as payment) {
+    <div class="payment-card">
+      <h1>Completa il Pagamento</h1>
+      
+      <div class="booking-summary">
+        <h2>Riepilogo Prenotazione</h2>
+        <div class="summary-item">
+          <span class="label">Evento:</span>
+          <span class="value">{{ payment.event.name }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Data:</span>
+          <span class="value">{{ payment.event.date | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Fila:</span>
+          <span class="value">{{ payment.seat.row }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Posto:</span>
+          <span class="value">{{ payment.seat.column }}</span>
+        </div>
+        <div class="summary-item price">
+          <span class="label">Prezzo:</span>
+          <span class="value">€ {{ totalPrice() }}</span>
+        </div>
+      </div>
+
+      @if (errorMessage()) {
+        <p class="message error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      @if (successMessage()) {
+        <p class="message success" role="status">{{ successMessage() }}</p>
+      }
+
+      <form class="payment-form" (ngSubmit)="processPayment()">
+        <fieldset>
+          <legend>Dati Pagamento e Contatti</legend>
+          
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input 
+              id="email"
+              type="email" 
+              placeholder="tua.email@example.com"
+              [(ngModel)]="email"
+              name="email"
+              required
+              [disabled]="isProcessing()">
+          </div>
+
+          <legend>Dati Carta di Credito</legend>
+          
+          <div class="form-group">
+            <label for="cardholderName">Intestatario Carta:</label>
+            <input 
+              id="cardholderName"
+              type="text" 
+              placeholder="Nome Cognome"
+              [(ngModel)]="cardholderName"
+              name="cardholderName"
+              required
+              [disabled]="isProcessing()">
+          </div>
+
+          <div class="form-group">
+            <label for="cardNumber">Numero Carta:</label>
+            <input 
+              id="cardNumber"
+              type="text" 
+              placeholder="1234 5678 9012 3456"
+              [(ngModel)]="cardNumber"
+              name="cardNumber"
+              maxlength="19"
+              required
+              [disabled]="isProcessing()">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiryDate">Scadenza (MM/YY):</label>
+              <input 
+                id="expiryDate"
+                type="text" 
+                placeholder="12/25"
+                [(ngModel)]="expiryDate"
+                name="expiryDate"
+                maxlength="5"
+                required
+                [disabled]="isProcessing()">
+            </div>
+
+            <div class="form-group">
+              <label for="cvv">CVV:</label>
+              <input 
+                id="cvv"
+                type="text" 
+                placeholder="123"
+                [(ngModel)]="cvv"
+                name="cvv"
+                maxlength="3"
+                required
+                [disabled]="isProcessing()">
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button 
+            type="submit" 
+            class="pay-btn"
+            [disabled]="!canProcess()"
+            (click)="processPayment()">
+            @if (isProcessing()) {
+              Elaborazione...
+            } @else {
+              Paga € {{ totalPrice() }}
+            }
+          </button>
+          <button 
+            type="button" 
+            class="cancel-btn"
+            [disabled]="isProcessing()"
+            (click)="cancelPayment()">
+            Annulla
+          </button>
+        </div>
+      </form>
+
+      <p class="security-notice">
+        🔒 Questo è un pagamento simulato. I dati della carta non vengono salvati.
+      </p>
+    </div>
+  } @else {
+    <div class="payment-card">
+      <p class="message error">Nessun pagamento in sospeso. Seleziona un posto per continuare.</p>
+      <button type="button" class="cancel-btn" (click)="cancelPayment()">
+        Torna alla Lista Eventi
+      </button>
+    </div>
+  }
+</div>

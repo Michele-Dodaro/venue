@@ -11,6 +11,7 @@ import { UpdateMenuCategory } from './components/update-menu-category/update-men
 import { CreateMenuItems } from './components/create-menu-items/create-menu-items';
 import { CreateLayout} from './components/create-layout/create-layout';
 import { SelectSeat } from './components/select-seat/select-seat';
+import { Payment } from './components/payment/payment';
 
 
 export const routes: Routes = [
@@ -84,5 +85,10 @@ export const routes: Routes = [
         path: 'events/:id/seats',
         component: SelectSeat,
         title: 'Seleziona Posti'
+    },
+    {
+        path: 'payment',
+        component: Payment,
+        title: 'Pagamento'
     },
 ];

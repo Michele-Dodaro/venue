@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, computed, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { forkJoin, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -9,25 +9,32 @@ import { AuthService } from '../../services/auth.service';
 import { EventLayoutService } from '../../services/event-layout.service';
 import { EventService } from '../../services/event.service';
 import { TicketService } from '../../services/ticket.service';
+import { PendingPaymentService } from '../../services/pending-payment.service';
+import { CommonModule } from '@angular/common';
 
 export interface Seat {
   row: number;
   column: number;
   status: 'available' | 'occupied' | 'selected';
+  price?: bigint;
 }
 
 @Component({
   selector: 'app-select-seat',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './select-seat.html',
   styleUrl: './select-seat.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectSeat implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly eventService = inject(EventService);
   private readonly eventLayoutService = inject(EventLayoutService);
   private readonly ticketService = inject(TicketService);
+  private readonly pendingPaymentService = inject(PendingPaymentService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
 
@@ -39,6 +46,10 @@ export class SelectSeat implements OnInit {
   readonly errorMessage = signal<string | null>(null);
   readonly successMessage = signal<string | null>(null);
   readonly canConfirm = computed(() => this.selectedSeat() !== null && !this.isLoading());
+  readonly selectedSeatPrice = computed(() => {
+    const seat = this.selectedSeat();
+    return seat?.price ?? null;
+  });
 
   ngOnInit(): void {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
@@ -59,7 +70,6 @@ export class SelectSeat implements OnInit {
 
     const currentSeat = this.selectedSeat();
 
-    // Se clicco lo stesso posto, lo deseleziono
     if (currentSeat && currentSeat.row === seat.row && currentSeat.column === seat.column) {
       const updatedGrid = this.seatsGrid().map(row =>
         row.map(s =>
@@ -73,14 +83,11 @@ export class SelectSeat implements OnInit {
       return;
     }
 
-    // Aggiorna la griglia: deseleziona il precedente e seleziona il nuovo
     const updatedGrid = this.seatsGrid().map(row =>
       row.map(s => {
-        // Deseleziona il precedente
         if (currentSeat && s.row === currentSeat.row && s.column === currentSeat.column) {
           return { ...s, status: 'available' as const };
         }
-        // Seleziona il nuovo
         if (s.row === seat.row && s.column === seat.column) {
           return { ...s, status: 'selected' as const };
         }
@@ -88,13 +95,14 @@ export class SelectSeat implements OnInit {
       })
     );
     this.seatsGrid.set(updatedGrid);
-    this.selectedSeat.set({ ...seat, status: 'selected' });
+    this.selectedSeat.set({ ...seat, status: 'selected', price: seat.price });
     this.successMessage.set(null);
   }
 
   confirmPurchase(): void {
     const seat = this.selectedSeat();
     const event = this.event();
+    const layout = this.layout();
 
     if (!this.authService.isLoggedIn()) {
       this.errorMessage.set('Sessione non valida. Effettua di nuovo il login per completare l\'acquisto.');
@@ -102,58 +110,18 @@ export class SelectSeat implements OnInit {
       return;
     }
 
-    if (!seat || !event) {
-     console.log('Errore: seat o event null');
-     return;
-   }
+    if (!seat || !event || !layout) {
+      this.errorMessage.set('Errore nel caricamento dei dati. Riprova.');
+      return;
+    }
 
-   console.log('Bottone cliccato - Posto:', seat.row, seat.column);
-    
-   // Cambia il posto a rosso IMMEDIATAMENTE
-   const updatedGrid = this.seatsGrid().map(row =>
-     row.map(s => {
-       if (s.row === seat.row && s.column === seat.column) {
-         console.log('Cambio posto a occupied');
-         return { row: s.row, column: s.column, status: 'occupied' as const };
-       }
-       return s;
-     })
-   );
-   console.log('Grid aggiornata');
-   this.seatsGrid.set(updatedGrid);
-   this.cdr.markForCheck();
-   this.selectedSeat.set(null);
+    this.pendingPaymentService.setPendingPayment({
+      seat: { ...seat, status: 'selected', price: seat.price },
+      event,
+      layoutId: layout!.id ?? 0
+    });
 
-   // Poi invia la richiesta al server
-   const request: TicketDTORequest = {
-     rowField: seat.row,
-     columnField: seat.column,
-     layoutId: this.layout()?.id ?? 0
-   };
-
-   console.log('Invio request ticket:', JSON.stringify(request));
-
-   this.ticketService.buyTicket(request)
-     .pipe(takeUntilDestroyed(this.destroyRef))
-     .subscribe({
-       next: () => {
-         this.errorMessage.set(null);
-         this.successMessage.set('Acquisto completato con successo.');
-       },
-       error: (error: HttpErrorResponse) => {
-         if (error.status === 403) {
-           this.errorMessage.set('Non sei autorizzato ad acquistare posti. Effettua il login con un account valido.');
-           this.successMessage.set(null);
-           this.loadSeatMap(event.id);
-           return;
-         }
-
-         // Se l'acquisto fallisce, recarica la mappa per sincronizzare lo stato
-         this.errorMessage.set('Il posto potrebbe essere appena stato acquistato da un altro utente.');
-         this.successMessage.set(null);
-         this.loadSeatMap(event.id);
-       }
-     });
+    this.router.navigate(['/payment']);
   }
 
   seatLabel(seat: Seat): string {
@@ -166,6 +134,17 @@ export class SelectSeat implements OnInit {
     }
 
     return 'disponibile';
+  }
+
+  getPriceClass(seat: Seat): string {
+    const layout = this.layout();
+    if (!layout || !seat.price) return '';
+    
+    if (seat.price === layout.price1) return 'price-1';
+    if (seat.price === layout.price2) return 'price-2';
+    if (seat.price === layout.price3) return 'price-3';
+    
+    return '';
   }
 
   private loadSeatMap(eventId: number): void {
@@ -198,6 +177,9 @@ export class SelectSeat implements OnInit {
       }
     });
   }
+    private seatKey(row: number, column: number): string {
+    return `${row}-${column}`;
+  }
 
   private buildSeatsGrid(layout: EventLayoutDTO, soldTickets: TicketDTOResponse[]): Seat[][] {
     const occupiedSeats = new Set(
@@ -210,13 +192,23 @@ export class SelectSeat implements OnInit {
       return Array.from({ length: Number(layout.number) }, (_, seatIndex) => {
         const column = seatIndex + 1;
         const status = occupiedSeats.has(this.seatKey(row, column)) ? 'occupied' : 'available';
+        const price = this.calculateSeatPrice(row, Number(layout.rowField), layout);
 
-        return { row, column, status };
+        return { row, column, status, price };
       });
     });
   }
 
-  private seatKey(row: number, column: number): string {
-    return `${row}-${column}`;
+  private calculateSeatPrice(row: number, totalRows: number, layout: EventLayoutDTO): bigint {
+    const size1 = Math.floor(totalRows / 3);
+    const size2 = Math.floor((totalRows - size1) / 2);
+    
+    if (row <= size1) {
+      return layout.price1;
+    } else if (row <= size1 + size2) {
+      return layout.price2;
+    } else {
+      return layout.price3;
+    }
   }
 }

@@ -61,9 +61,57 @@
   color: #444;
 }
 
+.price-legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.price-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+}
+
+.color-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.price-item.price-1 .color-box {
+  background: #3b82f6;
+}
+
+.price-item.price-2 .color-box {
+  background: #10b981;
+}
+
+.price-item.price-3 .color-box {
+  background: #f59e0b;
+}
+
+.price-item .label {
+  font-weight: 500;
+  color: #333;
+}
+
+.price-item .price {
+  font-weight: 600;
+  color: #111827;
+}
+
 .seating-area {
   display: grid;
   gap: 12px;
+  margin: 0 auto 16px;
+  max-width: 420px;
 }
 
 .seat-row {
@@ -81,6 +129,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 
 .seat-square {
@@ -115,6 +164,50 @@
 .seat-square.booked:hover {
   transform: none;
   background-color: #e74c3c;
+}
+
+.seat-square.price-1 {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.seat-square.price-1:hover:not(:disabled) {
+  background: #bfdbfe;
+}
+
+.seat-square.price-2 {
+  background: #dcfce7;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.seat-square.price-2:hover:not(:disabled) {
+  background: #bbf7d0;
+}
+
+.seat-square.price-3 {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.seat-square.price-3:hover:not(:disabled) {
+  background: #fde68a;
+}
+
+.selected-info {
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f0f9ff;
+  border-radius: 6px;
+  min-height: 24px;
+}
+
+.selected-info p {
+  margin: 0;
+  color: #0c4a6e;
 }
 
 .confirm-btn {
