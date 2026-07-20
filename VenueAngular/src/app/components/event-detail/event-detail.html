@@ -9,14 +9,7 @@
       <section class="description-section">
         <h3>Descrizione</h3>
         <p>{{ event.description }}</p>
-
-        <ng-container *ngIf="isLoggedIn$ | async; else loginToBuy">
-          <a [routerLink]="['/events', event.id, 'seats']" class="back-btn">acquista Posto</a>
-        </ng-container>
-
-        <ng-template #loginToBuy>
-          <a routerLink="/login" [queryParams]="{ redirectTo: '/events/' + event.id + '/seats' }" class="back-btn">accedi per acquistare</a>
-        </ng-template>
+        <a [routerLink]="['/events', event.id, 'seats', 1]" class="back-btn">acquista Posto</a>
 
       </section>
       <section class="info-section">

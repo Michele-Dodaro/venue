@@ -28,6 +28,22 @@ export class MenuCategoryListComponent implements OnInit {
         this.isLoggedIn = this.authService.isLoggedIn();
         this.authService.getAuthState().subscribe(v => this.isLoggedIn = v);
     }
+
+    getDisplayPrice(item: MenuItemDTOResponse): number {
+        return item.promotionPrice !== undefined && item.promotionPrice > 0 
+            ? item.promotionPrice 
+            : item.originalPrice;
+    }
+
+    hasPromotion(item: MenuItemDTOResponse): boolean {
+        return item.promotionPrice !== undefined && item.promotionPrice > 0;
+    }
+
+    getDiscountPercentage(item: MenuItemDTOResponse): number {
+        if (!this.hasPromotion(item)) return 0;
+        const discount = ((item.originalPrice - item.promotionPrice!) / item.originalPrice) * 100;
+        return Math.round(discount);
+    }
     deleteItem(categoryName: string, itemId: number): void {
         console.log(`Attempting to delete item with ID ${itemId}`);
         const confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');

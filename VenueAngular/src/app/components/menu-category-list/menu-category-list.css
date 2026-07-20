@@ -34,14 +34,41 @@
 .menu-item {
   background-color: #fff;
   border-left: 5px solid #ffcc00;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
 }
 
 .menu-item:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.menu-item.has-promotion {
+  border-left-color: #ff6b6b;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.05) 0%, transparent 100%);
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.15);
+  padding-top: 45px;
+}
+
+.promotion-ribbon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #ff6b6b;
+  color: white;
+  padding: 6px 14px;
+  font-weight: bold;
+  font-size: 0.7em;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 10;
 }
 
 .item-name {
@@ -53,9 +80,9 @@
 
 .item-desc {
   color: #666;
-  margin-bottom: 5px;
+  margin-bottom: 0;
   font-size: 0.95em;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .no-items {
@@ -78,60 +105,143 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  gap: 20px;
 }
 
 .item-name {
   margin: 0;
-  color: #000;
-  font-weight: bold;
-  font-size: 1.2em;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 1.15em;
+  flex: 1;
 }
 
-.item-price {
-  font-weight: bold;
-  color: #ffcc00;
+.item-price-wrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.normal-price {
+  font-weight: 700;
+  color: #fff;
   font-size: 1.1em;
   background-color: #333;
+  padding: 8px 14px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.price-with-promotion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  opacity: 0.55;
+  font-size: 0.9em;
+  color: #777;
+  font-weight: 500;
+}
+
+.original-price-footer {
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-size: 0.85em;
+  color: #999;
+  font-weight: 500;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.promotion-price {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.3em;
+  background-color: #ff6b6b;
+  padding: 8px 14px;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgba(255, 107, 107, 0.35);
+}
+
+.discount-percent {
+  background-color: #ffc107;
+  color: #000;
   padding: 4px 8px;
   border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.item-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.promotion-badge-small {
+  background-color: #ff6b6b;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
 }
 .menu-category button {
   width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 14px;
+  font-size: 0.95em;
+  font-weight: 600;
   text-transform: uppercase;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
   background-color: #333;
-  color: #fff;
+  color: #ffcc00;
+  margin-top: 15px;
 }
 
 .menu-category button:hover {
   background-color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 /* MODIFICA: container to push the delete button to the right side of the item */
 .item-actions {
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
   justify-content: flex-end;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
 }
 
 .delete-btn {
-  background-color: #d9534f;
+  background-color: #dc3545;
   color: #fff;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: bold;
+  padding: 8px 16px;
+  font-size: 0.85em;
+  font-weight: 600;
   text-transform: uppercase;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
 .delete-btn:hover {
-  background-color: #c9302c;
+  background-color: #c82333;
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+  transform: translateY(-1px);
 }

@@ -1,0 +1,259 @@
+.promotions-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  font-family: sans-serif;
+  color: #333;
+}
+
+.promotions-container h2 {
+  color: #000;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+.message {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+}
+
+.close-btn:hover {
+  opacity: 0.7;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.1em;
+  color: #666;
+  padding: 40px 20px;
+}
+
+.category-section {
+  margin-bottom: 40px;
+}
+
+.category-section h3 {
+  color: #000;
+  border-bottom: 3px solid #ffcc00;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  font-size: 1.5em;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.item-card {
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  border-left: 5px solid #ffcc00;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.item-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-left-color: #ff6b6b;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.item-header h4 {
+  margin: 0;
+  font-size: 1.1em;
+  color: #000;
+  flex: 1;
+}
+
+.original-price {
+  font-weight: bold;
+  color: #666;
+  font-size: 1em;
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.item-desc {
+  color: #666;
+  font-size: 0.9em;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.promotion-badge {
+  background-color: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.promotion-label {
+  font-weight: bold;
+  color: #856404;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+.promotion-price {
+  font-weight: bold;
+  color: #ff6b6b;
+  font-size: 1.3em;
+}
+
+.discount-badge {
+  background-color: #ff6b6b;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9em;
+  align-self: flex-start;
+}
+
+.expand-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #333;
+  color: #ffcc00;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.2s;
+}
+
+.expand-btn:hover {
+  background-color: #555;
+  transform: translateY(-2px);
+}
+
+.promotion-form {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 0.95em;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.95em;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 4px rgba(255, 204, 0, 0.3);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.no-items,
+.no-categories {
+  grid-column: 1 / -1;
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .items-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .item-header {
+    flex-direction: column;
+  }
+  
+  .original-price {
+    align-self: flex-start;
+  }
+}

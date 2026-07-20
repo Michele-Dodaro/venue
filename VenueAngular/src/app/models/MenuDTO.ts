@@ -10,6 +10,7 @@ export interface MenuItemDTOResponse {
   name: string;
   url: string;
   originalPrice: number;
+  promotionPrice?: number;
 }
 
 export interface MenuCategoryDTO {

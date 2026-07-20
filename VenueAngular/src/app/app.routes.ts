@@ -12,6 +12,7 @@ import { CreateMenuItems } from './components/create-menu-items/create-menu-item
 import { CreateLayout} from './components/create-layout/create-layout';
 import { SelectSeat } from './components/select-seat/select-seat';
 import { Payment } from './components/payment/payment';
+import { MenuPromotionsComponent } from './components/menu-promotions/menu-promotions';
 
 
 export const routes: Routes = [
@@ -90,5 +91,10 @@ export const routes: Routes = [
         path: 'payment',
         component: Payment,
         title: 'Pagamento'
+    },
+    {
+        path: 'menu-promotions',
+        component: MenuPromotionsComponent,
+        title: 'Gestione Offerte Menu'
     },
 ];

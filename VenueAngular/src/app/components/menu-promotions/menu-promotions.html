@@ -1,0 +1,96 @@
+<div class="promotions-container">
+  <h2>Gestione Offerte Menu</h2>
+  
+  @if (successMessage) {
+    <div class="message success">
+      {{ successMessage }}
+      <button (click)="clearMessages()" class="close-btn">✕</button>
+    </div>
+  }
+  
+  @if (errorMessage) {
+    <div class="message error">
+      {{ errorMessage }}
+      <button (click)="clearMessages()" class="close-btn">✕</button>
+    </div>
+  }
+
+  @if (loading) {
+    <p class="loading">Caricamento menu items...</p>
+  } @else {
+    @for (entry of categories; track entry.category.type || $index) {
+      <section class="category-section">
+        <h3>{{ entry.category.type }}</h3>
+        <div class="items-grid">
+          @for (item of entry.items; track item.id) {
+            <div class="item-card">
+              <div class="item-header">
+                <h4>{{ item.name }}</h4>
+                <span class="original-price">{{ item.originalPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+              </div>
+              
+              <p class="item-desc">{{ item.url }}</p>
+              
+              @if (hasPromotion(item)) {
+                <div class="promotion-badge">
+                  <span class="promotion-label">OFFERTA ATTIVA</span>
+                  <span class="promotion-price">{{ item.promotionPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+                  <span class="discount-badge">-{{ getDiscountPercentage(item) }}%</span>
+                </div>
+              }
+              
+              <button 
+                type="button" 
+                class="expand-btn" 
+                (click)="toggleExpanded(item.id)"
+              >
+                @if (isExpanded(item.id)) {
+                  Chiudi
+                } @else {
+                  Crea Offerta
+                }
+              </button>
+              
+              @if (isExpanded(item.id)) {
+                <form class="promotion-form">
+                  <div class="form-group">
+                    <label>Prezzo Offerta (€)</label>
+                    <input 
+                      type="number" 
+                      step="0.01"
+                      min="0"
+                      [(ngModel)]="promotionForm[item.id].promotionPrice"
+                      [ngModelOptions]="{standalone: true}"
+                      placeholder="es. 5.99"
+                    />
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Data Scadenza</label>
+                    <input 
+                      type="date"
+                      [(ngModel)]="promotionForm[item.id].expiresIn"
+                      [ngModelOptions]="{standalone: true}"
+                    />
+                  </div>
+                  
+                  <button 
+                    type="button"
+                    class="submit-btn"
+                    (click)="createPromotion(item)"
+                  >
+                    Crea Offerta
+                  </button>
+                </form>
+              }
+            </div>
+          } @empty {
+            <p class="no-items">Nessun elemento in questa categoria.</p>
+          }
+        </div>
+      </section>
+    } @empty {
+      <p class="no-categories">Nessuna categoria trovata.</p>
+    }
+  }
+</div>

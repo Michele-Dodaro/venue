@@ -9,17 +9,27 @@ public class MenuItemDTOResponse {
     private String name;
     private String url;
     private BigDecimal originalPrice;
+    private BigDecimal promotionPrice;
 
 
     public MenuItemDTOResponse() {
         this.id = counter.incrementAndGet();
     }
 
-    public MenuItemDTOResponse(Long id,String name, String url, BigDecimal originalPrice) {
+    public MenuItemDTOResponse(Long id, String name, String url, BigDecimal originalPrice) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.originalPrice = originalPrice;
+        this.promotionPrice = null;
+    }
+
+    public MenuItemDTOResponse(Long id, String name, String url, BigDecimal originalPrice, BigDecimal promotionPrice) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.originalPrice = originalPrice;
+        this.promotionPrice = promotionPrice;
     }
 
     public long getId() {
@@ -45,7 +55,16 @@ public class MenuItemDTOResponse {
     public BigDecimal getOriginalPrice() {
         return originalPrice;
     }
+
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public BigDecimal getPromotionPrice() {
+        return promotionPrice;
+    }
+
+    public void setPromotionPrice(BigDecimal promotionPrice) {
+        this.promotionPrice = promotionPrice;
     }
 }

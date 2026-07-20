@@ -10,12 +10,31 @@
         <h3>{{ entry.category.type }}</h3>
         <ul>
           @for (item of entry.items; track item.id) {
-            <li class="menu-item">
+            <li class="menu-item" [class.has-promotion]="hasPromotion(item)">
+              @if (hasPromotion(item)) {
+                <div class="promotion-ribbon">
+                  <span class="ribbon-text">OFFERTA!</span>
+                </div>
+              }
               <div class="item-header"> 
                 <div class="item-name">{{ item.name }}</div>
-                <div class="item-price">{{ item.originalPrice | currency:'EUR':'symbol':'1.2-2' }}</div>
+                <div class="item-price-wrapper">
+                  @if (hasPromotion(item)) {
+                    <div class="price-with-promotion">
+                      <span class="promotion-price">{{ getDisplayPrice(item) | currency:'EUR':'symbol':'1.2-2' }}</span>
+                      <span class="discount-percent">-{{ getDiscountPercentage(item) }}%</span>
+                    </div>
+                  } @else {
+                    <span class="normal-price">{{ getDisplayPrice(item) | currency:'EUR':'symbol':'1.2-2' }}</span>
+                  }
+                </div>
               </div>
               <div class="item-desc">{{ item.url }}</div>
+              @if (hasPromotion(item)) {
+                <div class="original-price-footer">
+                  Prezzo: {{ item.originalPrice | currency:'EUR':'symbol':'1.2-2' }}
+                </div>
+              }
               @if (isLoggedIn) {
                 <div class="item-actions">
                 <button type="button" class="delete-btn" (click)="deleteItem(entry.category.type, item.id)">Elimina</button>                

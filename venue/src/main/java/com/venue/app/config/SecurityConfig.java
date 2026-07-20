@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/tickets/layout/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/tickets").permitAll()
                         .requestMatchers("/api/menu/**").permitAll()
+                        .requestMatchers("/api/promotions/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -47,7 +47,7 @@ public class EmailController {
                                 "Data: " + eventDate + "\n" +
                                 "Fila: " + (filaObj != null ? filaObj.toString() : "N/A") + "\n" +
                                 "Posto: " + (postoObj != null ? postoObj.toString() : "N/A") + "\n" +
-                                "Prezzo: " + (priceObj != null ? priceObj.toString() : "N/A");
+                                "Prezzo: " + (priceObj != null ? priceObj.toString() : "N/A") + " EURO";
 
             logger.info("Generazione QR code...");
             byte[] qrCode = qrCodeService.generateQRCodeImage(qrCodeText, 300, 300);
