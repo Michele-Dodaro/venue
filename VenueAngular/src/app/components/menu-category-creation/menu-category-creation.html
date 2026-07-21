@@ -4,7 +4,7 @@
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="menu-category-form">
     <label for="type">Nome categoria</label>
     <input id="type" formControlName="type" type="text" placeholder="Inserisci il nome della categoria" />
-    <button type="button" class="back-btn" routerLink="/events">Torna alla lista</button>
+    <button type="button" class="back-btn" routerLink="/menu-category-list">Torna alla lista</button>
     <button type="submit" [disabled]="categoryForm.invalid">Salva categoria</button>
   </form>
 </div>

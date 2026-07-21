@@ -159,3 +159,4 @@ INSERT INTO promotion (promotion_table, promotion_price, expires_in) VALUES
 INSERT INTO promotion_items (promotion_id, menu_items_id, event_layout_id) VALUES
 (1, 2, 3),
 (2, 1, 1);
+

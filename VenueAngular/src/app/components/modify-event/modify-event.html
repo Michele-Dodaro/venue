@@ -68,7 +68,7 @@
           <button type="button" class="back-btn" (click)="onCancel()">
             Annulla
           </button>
-          <button type="submit" [disabled]="eventForm.invalid || isLoading">
+          <button type="submit" [disabled]="eventForm.invalid || isLoading" routerLink="/events">
             {{ isLoading ? 'Aggiornamento...' : 'Aggiorna' }}
           </button>
         </div>

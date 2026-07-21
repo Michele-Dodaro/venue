@@ -58,7 +58,7 @@
           <button type="button" class="back-btn" (click)="onCancel()">
             Annulla
           </button>
-          <button type="submit" [disabled]="menuItemForm.invalid || isLoading">
+          <button type="submit" [disabled]="menuItemForm.invalid || isLoading" routerLink="/menu-category-list">
             {{ isLoading ? 'Aggiornamento...' : 'Aggiorna' }}
           </button>
         </div>
