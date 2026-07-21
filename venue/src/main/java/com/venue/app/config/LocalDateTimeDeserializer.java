@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
 
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 
-    // Formati supportati, in ordine di preferenza
     private static final DateTimeFormatter[] FORMATTERS = {
             DateTimeFormatter.ISO_LOCAL_DATE_TIME,
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"),
@@ -29,13 +28,12 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
             try {
                 return LocalDateTime.parse(dateString, formatter);
             } catch (DateTimeParseException e) {
-                // Continua col prossimo formato
+                
             }
         }
 
-        // Se nessun formato funziona, lancia un errore
+        
         throw new IOException("Impossibile parsare la data: " + dateString +
                 ". Formati accettati: yyyy-MM-dd'T'HH:mm:ss.SSS, yyyy-MM-dd'T'HH:mm:ss, yyyy-MM-dd'T'HH:mm");
     }
 }
-

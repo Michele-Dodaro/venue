@@ -62,7 +62,7 @@ public class PromotionService {
             Promotion promotion = promoOpt.get();
             MenuItems item = itemOpt.get();
 
-            // Create a new PromotionItems entry to link the promotion to the menu item
+            
             PromotionItems promoItem = new PromotionItems();
             promoItem.setPromotion(promotion);
             promoItem.setMenuItem(item);

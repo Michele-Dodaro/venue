@@ -233,7 +233,6 @@
   transform: translateY(-2px);
 }
 
-/* MODIFICA: Aggiunto stile per il bottone di eliminazione promozione */
 .delete-promotion-btn {
   width: 100%;
   padding: 10px;

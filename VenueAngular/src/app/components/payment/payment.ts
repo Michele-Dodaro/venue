@@ -35,7 +35,6 @@ export class Payment implements OnInit {
     return price ? Number(price) : 0;
   });
 
-  // Simulated payment form data
   readonly email = signal('');
   readonly cardNumber = signal('');
   readonly expiryDate = signal('');
@@ -51,7 +50,6 @@ export class Payment implements OnInit {
   }
 
   processPayment(): void {
-    // Validate form
     if (!this.cardNumber() || !this.expiryDate() || !this.cvv() || !this.cardholderName()) {
       this.errorMessage.set('Completa tutti i dati della carta di credito.');
       return;
@@ -79,7 +77,6 @@ export class Payment implements OnInit {
       layoutId: payment.layoutId
     };
 
-    // Simulate payment processing delay
     setTimeout(() => {
       this.ticketService.buyTicket(ticketRequest)
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -87,7 +84,6 @@ export class Payment implements OnInit {
           next: () => {
             this.errorMessage.set(null);
             
-            // Send email with QR code
             this.emailService.sendReservationEmailWithQR(
               this.email(),
               payment.event.name,
@@ -102,7 +98,6 @@ export class Payment implements OnInit {
                   this.successMessage.set('Pagamento completato! Il tuo biglietto è stato inviato via email.');
                   this.pendingPaymentService.clearPendingPayment();
                   
-                  // Redirect after success
                   setTimeout(() => {
                     this.router.navigate(['/events', payment.event.id]);
                   }, 2000);

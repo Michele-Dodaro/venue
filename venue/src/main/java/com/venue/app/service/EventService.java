@@ -21,7 +21,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventLayoutRepository eventLayoutRepository;
 
-    // URL immagine di default
+    
     private static final String DEFAULT_IMAGE = "https://via.placeholder.com/800x400?text=Event+Image";
 
     public EventService(EventRepository eventRepository, EventLayoutRepository eventLayoutRepository) {
@@ -32,10 +32,10 @@ public class EventService {
     public EventDTOResponse createEvent(EventDTORequest eventDTORequest) {
         Event event = new Event();
 
-        // L'immagine è opzionale: valida e sanitizza l'URL
+        
         String imageUrl = eventDTORequest.getImage();
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            // Usa la URL fornita se valida
+            
             String validatedUrl = UrlUtil.validateAndSanitizeUrl(imageUrl);
             if (validatedUrl != null) {
                 event.setImage(validatedUrl);
@@ -69,13 +69,13 @@ public class EventService {
         return eventRepository.findAll().stream()
                 .map(event -> {
                     EventDTOResponse dto = EventDTOResponse.toDTO(event);
-                    // Valida e sanitizza ogni immagine
+                    
                     String image = dto.getImage();
                     if (image == null || image.isEmpty()) {
                         System.out.println("⚠ Evento " + dto.getId() + " senza immagine - Usando default");
                         dto.setImage(DEFAULT_IMAGE);
                     } else {
-                        // Valida l'URL esistente
+                        
                         String validatedUrl = UrlUtil.validateAndSanitizeUrl(image);
                         if (validatedUrl != null) {
                             dto.setImage(validatedUrl);
@@ -94,7 +94,7 @@ public class EventService {
         if (optionalEvent.isPresent()) {
             Event event = optionalEvent.get();
 
-            // Aggiorna solo i campi se forniti
+            
             if (eventDTORequest.getImage() != null && !eventDTORequest.getImage().isEmpty()) {
                 String validatedUrl = UrlUtil.validateAndSanitizeUrl(eventDTORequest.getImage());
                 if (validatedUrl != null) {
@@ -127,7 +127,7 @@ public class EventService {
 
             Event updatedEvent = eventRepository.save(event);
             EventDTOResponse dto = EventDTOResponse.toDTO(updatedEvent);
-            // Valida l'immagine nella risposta
+            
             String image = dto.getImage();
             if (image == null || image.isEmpty()) {
                 dto.setImage(DEFAULT_IMAGE);
@@ -158,7 +158,7 @@ public class EventService {
         return eventRepository.findById(id)
                 .map(event -> {
                     EventDTOResponse dto = EventDTOResponse.toDTO(event);
-                    // Valida e sanitizza l'immagine
+                    
                     String image = dto.getImage();
                     if (image == null || image.isEmpty()) {
                         System.out.println("⚠ Evento " + id + " senza immagine - Usando default");

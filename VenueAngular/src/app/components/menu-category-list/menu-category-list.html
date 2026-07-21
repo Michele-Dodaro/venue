@@ -58,7 +58,6 @@
           }
         </ul>
         @if (isLoggedIn) {
-          <!-- MODIFICA: Aggiunto un wrapper flex per allineare il bottone di modifica categoria -->
           <div class="category-actions" style="margin-top: 15px;">
             <button [routerLink]="['/edit-category', entry.category.type]">Modifica Categoria</button>
           </div>

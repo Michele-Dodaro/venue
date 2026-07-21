@@ -83,7 +83,6 @@ export class SelectSeat implements OnInit {
       return;
     }
 
-    // Cerca il prezzo del posto nella griglia se non è disponibile
     let seatPrice = seat.price;
     if (seatPrice === undefined) {
       for (const row of this.seatsGrid()) {

@@ -221,7 +221,6 @@
   opacity: 0.55;
 }
 
-/* RESPONSIVE - Tablet (max-width 768px) */
 @media (max-width: 768px) {
   .cinema-container {
     max-width: 100%;
@@ -282,7 +281,6 @@
   }
 }
 
-/* RESPONSIVE - Telefoni verticali (max-width 480px) */
 @media (max-width: 480px) {
   .cinema-container {
     max-width: 100%;

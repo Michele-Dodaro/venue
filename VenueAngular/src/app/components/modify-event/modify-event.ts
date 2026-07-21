@@ -128,7 +128,6 @@ export class ModifyEventComponent implements OnInit {
       this.cdr.markForCheck();
       const formValue = this.eventForm.value;
 
-      // Formato LocalDateTime con millisecondi: YYYY-MM-DDTHH:mm:ss.SSS
       const dateValue = new Date(formValue.date);
       const year = dateValue.getFullYear();
       const month = String(dateValue.getMonth() + 1).padStart(2, '0');

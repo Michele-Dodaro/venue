@@ -52,7 +52,6 @@ export class ModifyMenuItemComponent implements OnInit {
       this.isLoading = true;
       this.cdr.markForCheck();
 
-      // Carica il menu item dalla lista
       this.menuService.getAllMenuItems(categoryNameParam).subscribe({
         next: (items) => {
           const item = items.find((i) => i.id === this.itemId);
@@ -99,7 +98,6 @@ export class ModifyMenuItemComponent implements OnInit {
 
       const formValue = this.menuItemForm.value;
       
-      // Trova l'ID della categoria dal nome
       const selectedCategory = this.categories.find((cat) => cat.type === formValue.type);
       const categoryId = selectedCategory?.id || 0;
 

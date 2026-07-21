@@ -98,7 +98,6 @@
   cursor: not-allowed;
 }
 
-/* RESPONSIVE - Tablet */
 @media (max-width: 768px) {
   .users-page {
     padding: 15px;
@@ -135,7 +134,6 @@
   }
 }
 
-/* RESPONSIVE - Telefoni verticali */
 @media (max-width: 480px) {
   .users-page {
     padding: 10px;

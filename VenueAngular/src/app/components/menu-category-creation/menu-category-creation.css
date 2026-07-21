@@ -64,7 +64,6 @@
   background-color: #000;
 }
 
-/* RESPONSIVE - Tablet */
 @media (max-width: 768px) {
   .menu-category-container {
     padding: 20px;
@@ -83,7 +82,6 @@
   }
 }
 
-/* RESPONSIVE - Telefoni verticali */
 @media (max-width: 480px) {
   .menu-category-container {
     padding: 16px;

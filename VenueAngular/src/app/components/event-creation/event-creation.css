@@ -116,7 +116,6 @@ button[type="submit"]:disabled {
   background-color: #000;
 }
 
-/* RESPONSIVE - Tablet */
 @media (max-width: 768px) {
   .form-card {
     padding: 20px;
@@ -150,7 +149,6 @@ button[type="submit"]:disabled {
   }
 }
 
-/* RESPONSIVE - Telefoni verticali */
 @media (max-width: 480px) {
   .form-card {
     padding: 16px;

@@ -100,7 +100,6 @@
   background-color: #000;
 }
 
-/* Items Section Styles */
 .items-section {
   margin-top: 20px;
 }
@@ -209,7 +208,6 @@
   transform: translateY(-1px);
 }
 
-/* RESPONSIVE - Tablet */
 @media (max-width: 768px) {
   .menu-category-container {
     padding: 20px;
@@ -236,7 +234,6 @@
   }
 }
 
-/* RESPONSIVE - Telefoni verticali */
 @media (max-width: 480px) {
   .menu-category-container {
     padding: 16px;

@@ -30,7 +30,6 @@
   border-left-color: #333;
 }
 
-/* RESPONSIVE - Tablet */
 @media (max-width: 768px) {
   .add-actions {
     margin-bottom: 12px;
@@ -42,7 +41,6 @@
   }
 }
 
-/* RESPONSIVE - Telefoni verticali */
 @media (max-width: 480px) {
   .add-actions {
     margin-bottom: 10px;

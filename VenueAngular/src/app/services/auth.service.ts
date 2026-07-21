@@ -31,7 +31,7 @@ export class AuthService {
       tap(response => {
         if (isPlatformBrowser(this.platformId) && response && response.token) {
           localStorage.setItem('token', response.token);
-          this.loggedIn.next(true); // Notifica tutti i componenti
+          this.loggedIn.next(true);
         }
       })
     );
@@ -40,7 +40,7 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
-      this.loggedIn.next(false); // Notifica tutti i componenti
+      this.loggedIn.next(false); 
     }
   }
 

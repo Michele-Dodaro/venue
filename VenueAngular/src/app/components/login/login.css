@@ -59,7 +59,6 @@ button:hover {
   background-color: #fff;
 }
 
-/* RESPONSIVE - Tablet */
 @media (max-width: 768px) {
   .login-box {
     padding: 30px;
@@ -85,7 +84,6 @@ button:hover {
   }
 }
 
-/* RESPONSIVE - Telefoni verticali */
 @media (max-width: 480px) {
   .login-container {
     padding: 20px;

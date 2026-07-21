@@ -1,4 +1,4 @@
-package com.venue.app.model.dto; // Assicurati che il package sia corretto
+package com.venue.app.model.dto;
 
 public class LoginRequest {
     private String email;
